@@ -15,3 +15,5 @@ deploy:
 
 start:
 	make start-backend & make start-frontend
+
+.PHONY: install start-frontend start-backend deploy start
