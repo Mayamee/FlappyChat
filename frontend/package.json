@@ -5,24 +5,26 @@
   "proxy": "http://localhost:5001",
   "main": "src/index.js",
   "dependencies": {
+    "@craco/craco": "^7.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "bootstrap": "^5.2.3",
     "i18next": "^22.4.13",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.2.0",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "lint": "eslint . --ext .js,.jsx",
     "lint:fix": "eslint . --ext .js,.jsx --fix",
-    "pretty": "prettier --write .",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "pretty": "prettier --write ."
   },
   "browserslist": {
     "production": [
@@ -41,6 +43,7 @@
     "npm": "9.3.1"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint": "^8.36.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-functional": "^4.2.2",

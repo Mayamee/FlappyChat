@@ -19,6 +19,8 @@ plugins:
   - functional
 
 rules:
+  arrow-body-style: 0
+  linebreak-style: 0
   semi: 0
   import/extensions: 0
   import/no-unresolved: 0
