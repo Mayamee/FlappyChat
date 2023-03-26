@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar'
 
 const Layout = ({ children }) => {
   return (
-    <div className="d-flex flex-column mh100vh">
+    <div className="d-flex flex-column min-vh-100">
       <header>
         <Navbar className="shadow-sm" bg="white">
           <Container>

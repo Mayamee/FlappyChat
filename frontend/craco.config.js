@@ -7,7 +7,8 @@ module.exports = {
     alias: {
       '~': path.resolve(__dirname, 'node_modules'),
       '@assets': path.join(srcPath, 'assets'),
-      '@images': path.join(srcPath, 'assets', 'images', 'img'),
+      '@images': path.join(srcPath, 'assets', 'images'),
+      '@icons': path.join(srcPath, 'assets', 'icons'),
       '@components': path.join(srcPath, 'components'),
       '@UI': path.join(srcPath, 'components', 'UI'),
       '@pages': path.join(srcPath, 'pages'),
