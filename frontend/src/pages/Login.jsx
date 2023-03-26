@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
 import LoginImg from '@images/loginImg.jpg'
 import Image from 'react-bootstrap/Image'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
   return (
@@ -22,12 +23,15 @@ const Login = () => {
                 </Col>
               </Row>
             </Card.Body>
-            <Card.Footer className="text-center py-3">Нет аккаунта? Регистрация</Card.Footer>
+            <Card.Footer className="text-center py-3">
+              Нет аккаунта?&nbsp;
+              <Link to="/signup">Регистрация</Link>
+            </Card.Footer>
           </Card>
         </Col>
       </Row>
     </Container>
   )
 }
-
+// signup
 export default Login
