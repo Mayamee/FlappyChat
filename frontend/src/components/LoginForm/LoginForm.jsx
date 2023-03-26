@@ -33,10 +33,10 @@ const LoginForm = () => {
       {({ isSubmitting }) => (
         <FormikForm>
           <h1 className="text-center mb-3">Войти</h1>
-          <Form.Group className="mb-3 position-relative">
+          <Form.Group className="mb-3">
             <FloatingField type="text" label="Ваш ник" name="login" required />
           </Form.Group>
-          <Form.Group className="mb-3 position-relative">
+          <Form.Group className="mb-3">
             <FloatingField type="password" label="Введите пароль" name="password" required />
           </Form.Group>
           <Button className="w-100" type="submit" variant="outline-primary" disabled={isSubmitting}>
