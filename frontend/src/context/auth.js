@@ -20,8 +20,15 @@ export const AuthProvider = ({ children }) => {
   )
   return <AuthContext.Provider value={userSettings}>{children}</AuthContext.Provider>
 }
+// Redirect to login if user is not logged in
 export const PrivateRoute = ({ children }) => {
   const { isLoggedIn } = useAuth()
   const location = useLocation()
   return isLoggedIn ? children : <Navigate to="/login" state={{ from: location }} />
+}
+// Redirect to home if user is logged in
+export const AuthRoute = ({ children }) => {
+  const { isLoggedIn } = useAuth()
+  const location = useLocation()
+  return isLoggedIn ? <Navigate to="/" state={{ from: location }} /> : children
 }
