@@ -1,23 +1,30 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Layout from '@components/Layout/Layout'
 import Chat from '@pages/Chat'
 import Login from '@pages/Login'
 import Signup from '@pages/Signup'
 import Page404 from '@pages/404'
+import { PrivateRoute } from '@context/auth'
+import { useEffect } from 'react'
 
 const App = () => {
-  const isAuth = false
+  useEffect(() => {}, [])
   return (
-    <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
-          <Route path="/" element={isAuth ? <Chat /> : <Navigate to="/login" replace />} />
-          <Route path="*" element={<Page404 />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+    <Layout>
+      <Routes>
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
+        <Route
+          path="/"
+          element={
+            <PrivateRoute>
+              <Chat />
+            </PrivateRoute>
+          }
+        />
+        <Route path="*" element={<Page404 />} />
+      </Routes>
+    </Layout>
   )
 }
 

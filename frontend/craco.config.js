@@ -15,6 +15,7 @@ module.exports = {
       '@utils': path.join(srcPath, 'utils'),
       '@validation': path.join(srcPath, 'validation'),
       '@services': path.join(srcPath, 'services'),
+      '@context': path.join(srcPath, 'context'),
     },
   },
 }
