@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Layout from '@components/Layout/Layout'
 import Chat from '@pages/Chat'
 import Login from '@pages/Login'
@@ -8,13 +8,11 @@ import { AuthRoute, PrivateRoute, useAuth } from '@context/auth'
 import { useEffect } from 'react'
 
 const App = () => {
-  const { logIn } = useAuth()
-  const navigate = useNavigate()
+  const { login } = useAuth()
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      logIn()
-    } else {
-      navigate('/login', { replace: true })
+    const token = localStorage.getItem('token')
+    if (token) {
+      login()
     }
   }, [])
   return (

@@ -7,7 +7,7 @@ import AuthService from '@services/AuthService'
 import { useRef, useState } from 'react'
 import { FloatingLabel } from 'react-bootstrap'
 import clsx from 'clsx'
-// import Debug from '@utils/Debug/Debug'
+import { useAuth } from '@context/auth'
 
 const initialValues = {
   login: '',
@@ -17,10 +17,12 @@ const initialValues = {
 const LoginForm = () => {
   const [authFailed, setAuthFailed] = useState(false)
   const loginRef = useRef(null)
+  const { login } = useAuth()
   const onSubmitHandler = async (values, actions) => {
     try {
-      const data = await AuthService.login(values.login, values.password)
-      console.log(data)
+      const { data } = await AuthService.login(values.login, values.password)
+      localStorage.setItem('token', data.token)
+      login()
     } catch (err) {
       if (err.isAxiosError && err.response.status === 401) {
         const { current: loginInput } = loginRef
@@ -86,7 +88,6 @@ const LoginForm = () => {
             )}
             {!isSubmitting && 'Войти'}
           </Button>
-          {/* <Debug /> */}
         </FormikForm>
       )}
     </Formik>
