@@ -1,37 +1,36 @@
-import clsx from 'clsx'
-import { useRef, useState } from 'react'
 import { Form as FormikForm, Formik } from 'formik'
+import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import FloatingLabel from 'react-bootstrap/FloatingLabel'
-import { useAuth } from '@context/auth'
+import signupSchema from '@validation/signupSchema'
 import AuthService from '@services/AuthService'
-import loginSchema from '@validation/loginSchema'
+import { useRef } from 'react'
+import { useAuth } from '@context/auth'
 
 const initialValues = {
   login: '',
   password: '',
+  confirmPassword: '',
 }
 
-const LoginForm = () => {
-  const [authFailed, setAuthFailed] = useState(false)
+const SignupForm = () => {
   const loginRef = useRef(null)
   const { login } = useAuth()
   const onSubmitHandler = async (values, actions) => {
     try {
-      const { data } = await AuthService.login(values.login, values.password)
+      const { data } = await AuthService.signup(values.login, values.password)
       if (!data.token) throw new Error('No token in response')
       localStorage.setItem('token', data.token)
       login()
     } catch (err) {
-      if (err.isAxiosError && err.response.status === 401) {
+      if (err.isAxiosError && err.response.status === 409) {
+        actions.setFieldError('login', 'Пользователь с таким именем уже существует')
         const { current: loginInput } = loginRef
         if (loginInput) {
           loginInput.focus()
           loginInput.select()
         }
-        setAuthFailed(true)
         return
       }
       throw err
@@ -40,46 +39,66 @@ const LoginForm = () => {
     }
   }
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmitHandler} validationSchema={loginSchema}>
-      {({ values, handleBlur, handleChange, isSubmitting }) => (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmitHandler}
+      validationSchema={signupSchema}
+    >
+      {({ values, errors, touched, handleBlur, handleChange, isSubmitting }) => (
         <FormikForm>
-          <h1 className="text-center mb-3">Войти</h1>
+          <h1 className="text-center mb-3">Регистрация</h1>
           <Form.Group className="mb-3">
-            <FloatingLabel controlId="login" label="Ваш ник">
+            <FloatingLabel controlId="login" label="Имя пользователя">
               <Form.Control
                 ref={loginRef}
                 value={values.login}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                isInvalid={authFailed}
+                isInvalid={touched.login && errors.login}
                 name="login"
                 autoComplete="off"
                 type="text"
                 placeholder="0"
                 required
               />
+              <Form.Control.Feedback type="invalid" tooltip>
+                {errors.login}
+              </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
-          <Form.Group
-            className={clsx('position-relative', {
-              'mb-3': !authFailed,
-              'mb-5': authFailed,
-            })}
-          >
+          <Form.Group className="mb-3 position-relative">
             <FloatingLabel controlId="password" label="Введите пароль">
               <Form.Control
                 value={values.password}
                 onBlur={handleBlur}
                 onChange={handleChange}
                 name="password"
-                isInvalid={authFailed}
+                isInvalid={touched.password && errors.password}
                 autoComplete="off"
                 type="password"
                 placeholder="0"
                 required
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                Неверный логин или пароль
+                {errors.password}
+              </Form.Control.Feedback>
+            </FloatingLabel>
+          </Form.Group>
+          <Form.Group className="mb-3 position-relative">
+            <FloatingLabel controlId="password" label="Подтвердите пароль">
+              <Form.Control
+                value={values.confirmPassword}
+                onBlur={handleBlur}
+                onChange={handleChange}
+                name="confirmPassword"
+                isInvalid={touched.confirmPassword && errors.confirmPassword}
+                autoComplete="off"
+                type="password"
+                placeholder="0"
+                required
+              />
+              <Form.Control.Feedback type="invalid" tooltip>
+                {errors.confirmPassword}
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
@@ -87,7 +106,7 @@ const LoginForm = () => {
             {isSubmitting && (
               <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
             )}
-            {!isSubmitting && 'Войти'}
+            {!isSubmitting && 'Зарегистрироваться'}
           </Button>
         </FormikForm>
       )}
@@ -95,4 +114,4 @@ const LoginForm = () => {
   )
 }
 
-export default LoginForm
+export default SignupForm
