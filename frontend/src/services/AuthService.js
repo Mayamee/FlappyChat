@@ -13,20 +13,13 @@ class AuthService {
 
   signup = (username, password) => {
     return this.service.post('/signup', {
-      data: {
-        username,
-        password,
-      },
+      username,
+      password,
     })
   }
 
   login = (username, password) => {
-    return this.service.post('/login', {
-      data: {
-        username,
-        password,
-      },
-    })
+    return this.service.post('/login', { username, password })
   }
 }
 
