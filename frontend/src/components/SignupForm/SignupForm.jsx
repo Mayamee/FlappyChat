@@ -1,12 +1,12 @@
+import { useRef } from 'react'
 import { Form as FormikForm, Formik } from 'formik'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import signupSchema from '@validation/signupSchema'
-import AuthService from '@services/AuthService'
-import { useRef } from 'react'
-import { useAuth } from '@context/auth'
+import signupSchema from '@/validation/signupSchema'
+import AuthService from '@/services/AuthService'
+import { useAuth } from '@/context/auth'
 
 const initialValues = {
   login: '',

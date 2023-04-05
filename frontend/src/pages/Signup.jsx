@@ -3,8 +3,8 @@ import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image'
 import Row from 'react-bootstrap/Row'
-import RegisterImg from '@images/registerImg.jpg'
-import SignupForm from '@components/SignupForm/SignupForm'
+import RegisterImg from '@/assets/images/registerImg.jpg'
+import SignupForm from '@/components/SignupForm/SignupForm'
 
 const Signup = () => {
   return (

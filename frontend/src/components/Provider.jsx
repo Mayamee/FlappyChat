@@ -1,10 +1,14 @@
 import { BrowserRouter } from 'react-router-dom'
-import { AuthProvider } from '@context/auth'
+import { Provider as ReduxProvider } from 'react-redux'
+import { AuthProvider } from '@/context/auth'
+import store from '@/redux/store'
 
 const Provider = ({ children }) => (
-  <BrowserRouter>
-    <AuthProvider>{children}</AuthProvider>
-  </BrowserRouter>
+  <ReduxProvider store={store}>
+    <BrowserRouter>
+      <AuthProvider>{children}</AuthProvider>
+    </BrowserRouter>
+  </ReduxProvider>
 )
 
 export default Provider

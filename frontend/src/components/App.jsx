@@ -1,11 +1,11 @@
 import { Routes, Route } from 'react-router-dom'
-import Layout from '@components/Layout/Layout'
-import Chat from '@pages/Chat'
-import Login from '@pages/Login'
-import Signup from '@pages/Signup'
-import Page404 from '@pages/404'
-import { AuthRoute, PrivateRoute, useAuth } from '@context/auth'
 import { useEffect } from 'react'
+import Layout from '@/components/Layout/Layout'
+import Chat from '@/pages/Chat'
+import Login from '@/pages/Login'
+import Signup from '@/pages/Signup'
+import Page404 from '@/pages/404'
+import { AuthRoute, PrivateRoute, useAuth } from '@/context/auth'
 
 const App = () => {
   const { login } = useAuth()

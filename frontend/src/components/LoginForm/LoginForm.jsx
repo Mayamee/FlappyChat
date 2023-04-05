@@ -5,9 +5,9 @@ import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
-import { useAuth } from '@context/auth'
-import AuthService from '@services/AuthService'
-import loginSchema from '@validation/loginSchema'
+import { useAuth } from '@/context/auth'
+import AuthService from '@/services/AuthService'
+import loginSchema from '@/validation/loginSchema'
 
 const initialValues = {
   login: '',

@@ -1,11 +1,11 @@
-import LoginForm from '@components/LoginForm/LoginForm'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import Container from 'react-bootstrap/Container'
-import LoginImg from '@images/loginImg.jpg'
 import Image from 'react-bootstrap/Image'
 import { Link } from 'react-router-dom'
+import LoginImg from '@/assets/images/loginImg.jpg'
+import LoginForm from '@/components/LoginForm/LoginForm'
 
 const Login = () => {
   return (
