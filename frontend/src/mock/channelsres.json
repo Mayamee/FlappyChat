@@ -1,0 +1,13 @@
+{
+  "channels": [
+    { "id": 1, "name": "general", "removable": false },
+    { "id": 2, "name": "random", "removable": false },
+    { "id": 3, "name": "new_channel", "removable": true }
+  ],
+  "currentChannelId": 1,
+  "messages": [
+    { "id": 1, "channelId": 1, "body": "Hello, world!" },
+    { "id": 2, "channelId": 2, "body": "Hello, world!" },
+    { "id": 3, "channelId": 1, "body": "Hello, world!" }
+  ]
+}

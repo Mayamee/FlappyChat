@@ -19,6 +19,10 @@ plugins:
   - functional
 
 rules:
+  no-multi-spaces: 1
+  react/jsx-props-no-multi-spaces: 1
+  no-unused-vars: 1
+  react/jsx-one-expression-per-line: 0
   react/jsx-wrap-multilines: 0
   comma-dangle: 0
   functional/no-this-expression: 0
