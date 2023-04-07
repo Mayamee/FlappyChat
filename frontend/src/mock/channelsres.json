@@ -6,8 +6,8 @@
   ],
   "currentChannelId": 1,
   "messages": [
-    { "id": 1, "channelId": 1, "body": "Hello, world!" },
-    { "id": 2, "channelId": 2, "body": "Hello, world!" },
-    { "id": 3, "channelId": 1, "body": "Hello, world!" }
+    { "id": 1, "body": "new message", "channelId": 7, "username": "Joe" },
+    { "id": 2, "body": "new message", "channelId": 3, "username": "Jim" },
+    { "id": 3, "body": "new message", "channelId": 5, "username": "Don" }
   ]
 }

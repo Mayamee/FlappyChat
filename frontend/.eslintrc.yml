@@ -19,6 +19,7 @@ plugins:
   - functional
 
 rules:
+  operator-linebreak: 0
   no-multi-spaces: 1
   react/jsx-props-no-multi-spaces: 1
   no-unused-vars: 1
