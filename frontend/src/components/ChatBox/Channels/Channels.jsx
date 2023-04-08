@@ -15,11 +15,9 @@ const Channels = ({
     onChannelChange(id)
   }
   const handleDeleteChannel = (id) => () => {
-    console.log('delete', id)
     onChannelDelete(id)
   }
   const handleRenameChannel = (id) => () => {
-    console.log('rename', id)
     onChannelRename(id)
   }
   return (
@@ -29,7 +27,7 @@ const Channels = ({
       variant="pills"
       className="nav-fill px-1 pb-2 h-100 d-block overflow-auto"
     >
-      {channels.concat({ id: 3, name: 'custom_channel', removable: true }).map((channel) => (
+      {channels.map((channel) => (
         <Channel
           key={channel.id}
           id={channel.id}
