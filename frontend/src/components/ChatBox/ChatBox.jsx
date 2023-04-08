@@ -28,7 +28,7 @@ const ChatBox = () => {
       try {
         const { data } = await ChatService.getChannelsData(token)
         const [channelEntities, channelIds] = getEntities(data.channels)
-        dispatch(setActiveChannel(data.currentChannel))
+        dispatch(setActiveChannel(data.currentChannelId))
         dispatch(
           setChannels({
             entities: channelEntities,
