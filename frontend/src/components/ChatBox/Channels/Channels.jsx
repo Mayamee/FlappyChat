@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Nav } from 'react-bootstrap'
 import Channel from './Channel'
 
@@ -9,12 +8,10 @@ const Channels = ({
   onChannelDelete,
   onChannelRename,
 }) => {
-  const [currentChannel, setCurrentChannel] = useState(activeChannel)
   if (channels.length === 0) return 'No channels'
   const handleChannelChange = (e) => {
     const id = Number(e.target.dataset.id)
     if (!id) return
-    setCurrentChannel(id)
     onChannelChange(id)
   }
   const handleDeleteChannel = (id) => () => {
@@ -36,7 +33,7 @@ const Channels = ({
         <Channel
           key={channel.id}
           id={channel.id}
-          active={currentChannel === channel.id}
+          active={activeChannel === channel.id}
           name={channel.name}
           removable={channel.removable}
           onDelete={handleDeleteChannel(channel.id)}
@@ -47,7 +44,7 @@ const Channels = ({
   )
 }
 Channels.defaultProps = {
-  activeChannel: 1,
+  activeChannel: null,
   channels: [],
   onChannelChange: () => {},
   onChannelDelete: () => {},
