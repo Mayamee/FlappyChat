@@ -9,9 +9,11 @@ const Layout = ({ children }) => {
   return (
     <div className="d-flex flex-column min-vh-100">
       <header>
-        <Navbar as={Link} to="/" className="shadow-sm text-decoration-none" bg="white">
+        <Navbar className="shadow-sm text-decoration-none" bg="white">
           <Container>
-            <Navbar.Brand>Hexlet Chat</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">
+              Hexlet Chat
+            </Navbar.Brand>
             {isLoggedIn && (
               <Button onClick={logout} variant="primary">
                 Выйти
