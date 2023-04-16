@@ -23,7 +23,7 @@ const MessageForm = () => {
     },
   })
   return (
-    <Form noValidate onSubmit={formik.handleSubmit}>
+    <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
       <InputGroup>
         <Form.Control
           placeholder="Введите ваше сообщение"
