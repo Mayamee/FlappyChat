@@ -1,21 +1,27 @@
 import { Stack } from 'react-bootstrap'
 
-const Messages = ({ title, description, children, form }) => (
-  <div className="d-flex flex-column h-100 w-100">
-    <div className="h-80px shadow px-3 d-flex align-items-center">
-      <div>
+const Messages = ({ title, description, children, form }) => {
+  const renderChildren = (data) => {
+    if (!data || data?.length === 0) return <div>Нет сообщений</div>
+    return data
+  }
+  return (
+    <div className="d-flex flex-column h-100 w-100">
+      <div className="h-80px shadow px-3 d-flex align-items-center">
         <div>
-          <b>{title}</b>
+          <div>
+            <b>{title}</b>
+          </div>
+          <div>{description}</div>
         </div>
-        <div>{description}</div>
+      </div>
+      <div className="flex-fill d-flex flex-column bg-white p-3">
+        <Stack gap={3}>{renderChildren(children)}</Stack>
+        {form}
       </div>
     </div>
-    <div className="flex-fill d-flex flex-column bg-white p-3">
-      <Stack gap={3}>{children}</Stack>
-      {form}
-    </div>
-  </div>
-)
+  )
+}
 Messages.defaultProps = {
   title: 'Message Header',
   description: 'Some description here',

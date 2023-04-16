@@ -11,6 +11,7 @@ import Messages from './Messages/Messages'
 import MessageForm from './Messages/MessageForm'
 import selectActiveChannel from '@/redux/selectors/selectActiveChannel'
 import { useSocketContext } from '@/hooks/useSocket'
+import { selectAllMessages, setMessages } from '@/redux/slices/messagesSlice'
 
 const modalTypes = {
   nomodal: 'nomodal',
@@ -23,6 +24,7 @@ const ChatBox = () => {
   const dispatch = useDispatch()
   const channels = useSelector(selectAllChannels)
   const currentChannel = useSelector(selectActiveChannel)
+  const messages = useSelector(selectAllMessages)
 
   const [modalType, setModalType] = useState(modalTypes.nomodal)
   const [itemIdx, setItemIdx] = useState(null)
@@ -37,29 +39,26 @@ const ChatBox = () => {
     socket.on('disconnect', () => {
       console.log('disconnected')
     })
+    socket.on('newMessage', (message) => {
+      console.log(message)
+    })
   }, [socket])
 
   useEffect(() => {
-    const fetchChannels = async () => {
+    const fetchChatData = async () => {
       const authData = localStorage.getItem('authData')
       if (!authData) throw new Error('No auth token provided')
       const data = JSON.parse(authData)
       try {
         const { data: response } = await ChatService.getChannelsData(data.token)
         dispatch(setActiveChannel(response.currentChannelId))
-        dispatch(
-          setChannels(
-            response.channels.concat(
-              { id: 3, name: 'custom_channel', removable: true },
-              { id: 4, name: 'custom_channel2', removable: true }
-            )
-          )
-        )
+        dispatch(setChannels(response.channels))
+        dispatch(setMessages(response.messages))
       } catch (error) {
         console.log(error)
       }
     }
-    fetchChannels()
+    fetchChatData()
   }, [])
   const handleCloseModal = () => {
     setModalOpen(false)
@@ -144,8 +143,11 @@ const ChatBox = () => {
         </Col>
         <Col xs={8} sm={9} lg={10} className="h-100 bg-light p-0">
           <Messages title="#general" description="0 сообщений" form={<MessageForm />}>
-            <div className="msg-box-message">01</div>
-            <div className="msg-box-message">01</div>
+            {messages.map((message) => (
+              <div key={message.id} className="msg-box">
+                message
+              </div>
+            ))}
           </Messages>
         </Col>
       </Row>
