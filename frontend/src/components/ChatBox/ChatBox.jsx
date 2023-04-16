@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
-import { setActiveChannel, setChannels } from '@/redux/slices/channelsSlice'
+import { setActiveChannel, setChannels, selectAllChannels } from '@/redux/slices/channelsSlice'
 import ChatService from '@/services/ChatService'
-import getEntities from '@/utils/getEntities/getEntities'
 import Channels from './Channels/Channels'
 import AddChannelModal from './Modal/AddChannelModal'
 import RenameChannelModal from './Modal/RenameChannelModal'
 import DeleteChannelModal from './Modal/DeleteChannelModal'
 import Messages from './Messages/Messages'
 import MessageForm from './Messages/MessageForm'
+import selectActiveChannel from '@/redux/selectors/selectActiveChannel'
 
 const modalTypes = {
   nomodal: 'nomodal',
@@ -20,16 +20,9 @@ const modalTypes = {
 
 const ChatBox = () => {
   const dispatch = useDispatch()
-  const channels = useSelector((state) => {
-    const { entities, ids } = state.channels
-    return ids.map((id) => entities[id])
-  })
-  // TODO FIX#1
-  const currentChannel = useSelector((state) => {
-    const { activeChannel } = state.channels
-    return activeChannel
-  })
-  // TODO FIX#2
+  const channels = useSelector(selectAllChannels)
+  const currentChannel = useSelector(selectActiveChannel)
+
   const [modalType, setModalType] = useState(modalTypes.nomodal)
   const [itemIdx, setItemIdx] = useState(null)
   const [isModalOpen, setModalOpen] = useState(false)
@@ -42,18 +35,14 @@ const ChatBox = () => {
       if (!token) throw new Error('No auth token')
       try {
         const { data } = await ChatService.getChannelsData(token)
-        const [channelEntities, channelIds] = getEntities(
-          data.channels.concat(
-            { id: 3, name: 'custom_channel', removable: true },
-            { id: 4, name: 'custom_channel2', removable: true }
-          )
-        )
         dispatch(setActiveChannel(data.currentChannelId))
         dispatch(
-          setChannels({
-            entities: channelEntities,
-            ids: channelIds,
-          })
+          setChannels(
+            data.channels.concat(
+              { id: 3, name: 'custom_channel', removable: true },
+              { id: 4, name: 'custom_channel2', removable: true }
+            )
+          )
         )
       } catch (error) {
         console.log(error)
@@ -63,8 +52,6 @@ const ChatBox = () => {
   }, [])
   const handleCloseModal = () => {
     setModalOpen(false)
-    // Change modal type to invoke component will unmount
-    // reconsilation alghoritm
     setTimeout(() => {
       setModalType(modalTypes.nomodal)
     }, 500)
@@ -136,8 +123,8 @@ const ChatBox = () => {
       <Row className="h-100 shadow">
         <Col xs={4} sm={3} lg={2} className="h-100 bg-light p-0 border-end">
           <Channels
-            activeChannel={currentChannel}
             channels={channels}
+            activeChannel={currentChannel}
             onChannelAdd={handleAddChannel}
             onChannelChange={handleChannelChange}
             onChannelDelete={handleChannelDelete}
