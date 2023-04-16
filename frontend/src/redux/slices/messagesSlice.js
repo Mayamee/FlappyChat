@@ -1,4 +1,6 @@
-const { createSlice, createEntityAdapter } = require('@reduxjs/toolkit')
+import selectActiveChannel from '../selectors/selectActiveChannel'
+
+const { createSlice, createEntityAdapter, createSelector } = require('@reduxjs/toolkit')
 
 const messagesAdapter = createEntityAdapter()
 const initialState = messagesAdapter.getInitialState()
@@ -14,8 +16,12 @@ const messagesSlice = createSlice({
 
 export const { addMessage, setMessages } = messagesSlice.actions
 
-export const { selectAll: selectAllMessages } = messagesAdapter.getSelectors(
-  (state) => state.messages
+export const { selectAll: selectAllMessages, selectTotal: selectTotalMessages } =
+  messagesAdapter.getSelectors((state) => state.messages)
+
+export const selectMessagesByChannelId = createSelector(
+  [selectAllMessages, selectActiveChannel],
+  (messages, channelId) => messages.filter((message) => message.channelId === channelId)
 )
 
 export default messagesSlice.reducer

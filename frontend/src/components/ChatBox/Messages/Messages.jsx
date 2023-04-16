@@ -15,8 +15,10 @@ const Messages = ({ title, description, children, form }) => {
           <div>{description}</div>
         </div>
       </div>
-      <div className="flex-fill d-flex flex-column bg-white p-3">
-        <Stack gap={3}>{renderChildren(children)}</Stack>
+      <div className="flex-fill d-flex flex-column bg-white p-3 h-100">
+        <Stack className="h-100" gap={3}>
+          {renderChildren(children)}
+        </Stack>
         {form}
       </div>
     </div>

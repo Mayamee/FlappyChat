@@ -3,7 +3,6 @@ import { Button } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 import { Link } from 'react-router-dom'
-import { useAuth } from '@/context/auth'
 import selectAuth from '@/redux/selectors/selectAuth'
 import { logout } from '@/redux/slices/authSlice'
 

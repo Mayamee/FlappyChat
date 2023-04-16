@@ -11,7 +11,13 @@ import Messages from './Messages/Messages'
 import MessageForm from './Messages/MessageForm'
 import selectActiveChannel from '@/redux/selectors/selectActiveChannel'
 import { useSocketContext } from '@/hooks/useSocket'
-import { selectAllMessages, setMessages } from '@/redux/slices/messagesSlice'
+import {
+  addMessage,
+  selectMessagesByChannelId,
+  selectTotalMessages,
+  setMessages,
+} from '@/redux/slices/messagesSlice'
+import { selectUser } from '@/redux/selectors/selectAuth'
 
 const modalTypes = {
   nomodal: 'nomodal',
@@ -24,7 +30,9 @@ const ChatBox = () => {
   const dispatch = useDispatch()
   const channels = useSelector(selectAllChannels)
   const currentChannel = useSelector(selectActiveChannel)
-  const messages = useSelector(selectAllMessages)
+  const messagesByChannel = useSelector(selectMessagesByChannelId)
+  const totalMessages = useSelector(selectTotalMessages)
+  const user = useSelector(selectUser)
 
   const [modalType, setModalType] = useState(modalTypes.nomodal)
   const [itemIdx, setItemIdx] = useState(null)
@@ -40,7 +48,7 @@ const ChatBox = () => {
       console.log('disconnected')
     })
     socket.on('newMessage', (message) => {
-      console.log(message)
+      dispatch(addMessage(message))
     })
   }, [socket])
 
@@ -128,6 +136,19 @@ const ChatBox = () => {
       }
     }
   }
+  const handleSendMessage = (text) => {
+    if (!text) return
+    const payload = {
+      body: text,
+      channelId: currentChannel,
+      username: user,
+    }
+    socket.emit('newMessage', payload, ({ status }) => {
+      if (status === 'ok') {
+        // some logic
+      }
+    })
+  }
   return (
     <>
       <Row className="h-100 shadow">
@@ -142,10 +163,14 @@ const ChatBox = () => {
           />
         </Col>
         <Col xs={8} sm={9} lg={10} className="h-100 bg-light p-0">
-          <Messages title="#general" description="0 сообщений" form={<MessageForm />}>
-            {messages.map((message) => (
-              <div key={message.id} className="msg-box">
-                message
+          <Messages
+            title={channels[currentChannel - 1]?.name}
+            description={`${totalMessages} сообщений`}
+            form={<MessageForm onSubmit={handleSendMessage} />}
+          >
+            {messagesByChannel.map((message) => (
+              <div key={message.id} className="text-break">
+                <strong>{message.username}</strong>:&nbsp;{message.body}
               </div>
             ))}
           </Messages>

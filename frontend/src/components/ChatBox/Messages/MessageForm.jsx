@@ -2,7 +2,7 @@ import { useFormik } from 'formik'
 import { Button, InputGroup, Form } from 'react-bootstrap'
 import { SendPlus } from 'react-bootstrap-icons'
 
-const MessageForm = () => {
+const MessageForm = ({ onSubmit: submitHandler }) => {
   const formik = useFormik({
     initialValues: {
       message: '',
@@ -18,7 +18,7 @@ const MessageForm = () => {
       return errors
     },
     onSubmit: ({ message }, actions) => {
-      console.log({ message })
+      submitHandler(message)
       actions.resetForm()
     },
   })
