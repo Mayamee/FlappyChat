@@ -1,13 +1,14 @@
 import clsx from 'clsx'
+import { useDispatch } from 'react-redux'
 import { useRef, useState } from 'react'
 import { Form as FormikForm, Formik } from 'formik'
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
-import { useAuth } from '@/context/auth'
 import AuthService from '@/services/AuthService'
 import loginSchema from '@/validation/loginSchema'
+import { login } from '@/redux/slices/authSlice'
 
 const initialValues = {
   login: '',
@@ -16,14 +17,14 @@ const initialValues = {
 
 const LoginForm = () => {
   const [authFailed, setAuthFailed] = useState(false)
+  const dispatch = useDispatch()
   const loginRef = useRef(null)
-  const { login } = useAuth()
   const onSubmitHandler = async (values, actions) => {
     try {
       const { data } = await AuthService.login(values.login, values.password)
       if (!data.token) throw new Error('No token in response')
-      localStorage.setItem('token', data.token)
-      login()
+      localStorage.setItem('authData', JSON.stringify(data))
+      dispatch(login(data.username))
     } catch (err) {
       if (err.isAxiosError && err.response.status === 401) {
         const { current: loginInput } = loginRef

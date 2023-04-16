@@ -1,18 +1,21 @@
 import { Routes, Route } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import Layout from '@/components/Layout/Layout'
 import Chat from '@/pages/Chat'
 import Login from '@/pages/Login'
 import Signup from '@/pages/Signup'
 import Page404 from '@/pages/404'
-import { AuthRoute, PrivateRoute, useAuth } from '@/context/auth'
+import { AuthRoute, PrivateRoute } from '@/components/common/RouteGuards'
+import { login } from '@/redux/slices/authSlice'
 
 const App = () => {
-  const { login } = useAuth()
+  const dispatch = useDispatch()
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      login()
+    const authData = localStorage.getItem('authData')
+    if (authData) {
+      const data = JSON.parse(authData)
+      dispatch(login(data.username))
     }
   }, [])
   return (

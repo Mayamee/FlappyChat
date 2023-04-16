@@ -10,6 +10,7 @@ import DeleteChannelModal from './Modal/DeleteChannelModal'
 import Messages from './Messages/Messages'
 import MessageForm from './Messages/MessageForm'
 import selectActiveChannel from '@/redux/selectors/selectActiveChannel'
+import { useSocketContext } from '@/hooks/useSocket'
 
 const modalTypes = {
   nomodal: 'nomodal',
@@ -27,18 +28,28 @@ const ChatBox = () => {
   const [itemIdx, setItemIdx] = useState(null)
   const [isModalOpen, setModalOpen] = useState(false)
 
-  useEffect(() => {}, [])
+  const socket = useSocketContext()
+  useEffect(() => {
+    if (!socket) return
+    socket.on('connect', () => {
+      console.log('connected')
+    })
+    socket.on('disconnect', () => {
+      console.log('disconnected')
+    })
+  }, [socket])
 
   useEffect(() => {
     const fetchChannels = async () => {
-      const token = localStorage.getItem('token')
-      if (!token) throw new Error('No auth token')
+      const authData = localStorage.getItem('authData')
+      if (!authData) throw new Error('No auth token provided')
+      const data = JSON.parse(authData)
       try {
-        const { data } = await ChatService.getChannelsData(token)
-        dispatch(setActiveChannel(data.currentChannelId))
+        const { data: response } = await ChatService.getChannelsData(data.token)
+        dispatch(setActiveChannel(response.currentChannelId))
         dispatch(
           setChannels(
-            data.channels.concat(
+            response.channels.concat(
               { id: 3, name: 'custom_channel', removable: true },
               { id: 4, name: 'custom_channel2', removable: true }
             )

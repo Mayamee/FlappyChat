@@ -1,11 +1,18 @@
+import { useSelector, useDispatch } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import Container from 'react-bootstrap/Container'
 import Navbar from 'react-bootstrap/Navbar'
 import { Link } from 'react-router-dom'
 import { useAuth } from '@/context/auth'
+import selectAuth from '@/redux/selectors/selectAuth'
+import { logout } from '@/redux/slices/authSlice'
 
 const Layout = ({ children }) => {
-  const { isLoggedIn, logout } = useAuth()
+  const isLogin = useSelector(selectAuth)
+  const dispatch = useDispatch()
+  const logoutHandler = () => {
+    dispatch(logout())
+  }
   return (
     <div className="d-flex flex-column min-vh-100">
       <header>
@@ -14,8 +21,8 @@ const Layout = ({ children }) => {
             <Navbar.Brand as={Link} to="/">
               Hexlet Chat
             </Navbar.Brand>
-            {isLoggedIn && (
-              <Button onClick={logout} variant="primary">
+            {isLogin && (
+              <Button onClick={logoutHandler} variant="primary">
                 Выйти
               </Button>
             )}
