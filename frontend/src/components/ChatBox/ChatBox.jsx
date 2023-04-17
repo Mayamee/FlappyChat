@@ -120,7 +120,6 @@ const ChatBox = () => {
     setModalOpen(true)
   }
   const handleModalAddChannel = (name) => {
-    // TODO channel name must be unique
     socket.emit('newChannel', { name }, (data) => {
       if (data.status === 'ok') {
         // some logic
@@ -130,8 +129,6 @@ const ChatBox = () => {
     })
   }
   const handleModalDeleteChannel = () => {
-    // itemIdx
-    console.log(`some side logic - Delete modal with item ${itemIdx}`)
     socket.emit('removeChannel', { id: itemIdx }, (data) => {
       if (data.status === 'ok') {
         // some logic
@@ -139,16 +136,25 @@ const ChatBox = () => {
     })
   }
   const handleModalRenameChannel = (name) => {
-    // itemIdx
-    console.log(`some side logic - Rename modal to ${name} with item ${itemIdx}`)
     socket.emit('renameChannel', { id: itemIdx, name }, (data) => {
       if (data.status === 'ok') {
         // some logic
       }
     })
   }
+  const handleValidateChannel = ({ name }) => {
+    const errors = {}
+    if (name.length === 0) {
+      errors.name = 'Пустое название канала'
+    }
+    channels.forEach((channel) => {
+      if (channel.name === name) {
+        errors.name = 'Канал с таким именем уже существует'
+      }
+    })
+    return errors
+  }
   const renderModal = () => {
-    // TODO provide validation callback to add modal
     switch (modalType) {
       case modalTypes.addChannel: {
         return (
@@ -156,6 +162,7 @@ const ChatBox = () => {
             onAction={handleModalAddChannel}
             show={isModalOpen}
             onHide={handleCloseModal}
+            onValidate={handleValidateChannel}
           />
         )
       }
@@ -164,9 +171,10 @@ const ChatBox = () => {
         return (
           <RenameChannelModal
             name={name}
-            onAction={handleModalRenameChannel}
             show={isModalOpen}
+            onAction={handleModalRenameChannel}
             onHide={handleCloseModal}
+            onValidate={handleValidateChannel}
           />
         )
       }

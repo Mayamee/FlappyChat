@@ -19,6 +19,7 @@ const Channel = ({ id, name, active, removable, onDelete, onRename }) => {
     <Nav.Item as="li">
       <Dropdown as={ButtonGroup} className="w-100">
         <button data-id={id} type="button" className={buttonClasses}>
+          <span className="me-1">#</span>
           {name}
         </button>
         <Dropdown.Toggle variant={active ? 'secondary' : null} className="flex-grow-0" split />

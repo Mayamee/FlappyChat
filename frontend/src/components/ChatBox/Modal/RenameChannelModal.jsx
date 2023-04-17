@@ -7,6 +7,7 @@ const RenameChannelModal = ({
   show,
   onAction: doAction,
   onHide: closeHandler,
+  onValidate: validateHandler,
 }) => {
   const inputRef = useRef(null)
   const f = useFormik({
@@ -17,13 +18,7 @@ const RenameChannelModal = ({
       doAction(name)
       closeHandler()
     },
-    validate: (values) => {
-      const errors = {}
-      if (values.name.length === 0) {
-        errors.name = 'required'
-      }
-      return errors
-    },
+    validate: validateHandler,
   })
   const hideHandler = () => {
     f.resetForm()
@@ -41,13 +36,17 @@ const RenameChannelModal = ({
       </Modal.Header>
       <Modal.Body>
         <Form noValidate onSubmit={f.handleSubmit}>
-          <InputGroup className="mb-3">
+          <InputGroup className="mb-3" hasValidation>
             <Form.Control
               ref={inputRef}
               value={f.values.name}
               onChange={f.handleChange}
+              isInvalid={f.errors.name}
               name="name"
             />
+            <Form.Control.Feedback type="invalid" tooltip>
+              {f.errors.name}
+            </Form.Control.Feedback>
           </InputGroup>
           <FormGroup className="text-end">
             <Button type="submit" variant="primary" className="me-2">
