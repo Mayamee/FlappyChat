@@ -10,6 +10,7 @@ const Layout = ({ children }) => {
   const isLogin = useSelector(selectAuth)
   const dispatch = useDispatch()
   const logoutHandler = () => {
+    localStorage.removeItem('authData')
     dispatch(logout())
   }
   return (

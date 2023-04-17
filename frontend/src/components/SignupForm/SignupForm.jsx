@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux'
 import { useRef } from 'react'
 import { Form as FormikForm, Formik } from 'formik'
 import FloatingLabel from 'react-bootstrap/FloatingLabel'
@@ -6,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import signupSchema from '@/validation/signupSchema'
 import AuthService from '@/services/AuthService'
-import { useAuth } from '@/context/auth'
+import { login } from '@/redux/slices/authSlice'
 
 const initialValues = {
   login: '',
@@ -16,13 +17,13 @@ const initialValues = {
 
 const SignupForm = () => {
   const loginRef = useRef(null)
-  const { login } = useAuth()
+  const dispatch = useDispatch()
   const onSubmitHandler = async (values, actions) => {
     try {
       const { data } = await AuthService.signup(values.login, values.password)
       if (!data.token) throw new Error('No token in response')
-      localStorage.setItem('token', data.token)
-      login()
+      localStorage.setItem('authData', JSON.stringify(data))
+      dispatch(login(data.username))
     } catch (err) {
       if (err.isAxiosError && err.response.status === 409) {
         actions.setFieldError('login', 'Пользователь с таким именем уже существует')

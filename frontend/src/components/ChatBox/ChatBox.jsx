@@ -1,7 +1,16 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
-import { setActiveChannel, setChannels, selectAllChannels } from '@/redux/slices/channelsSlice'
+import {
+  setActiveChannel,
+  setChannels,
+  selectAllChannels,
+  addChannel,
+  removeChannel,
+  updateChannel,
+  selectChannelEntities,
+  setDefaultActiveChannel,
+} from '@/redux/slices/channelsSlice'
 import ChatService from '@/services/ChatService'
 import Channels from './Channels/Channels'
 import AddChannelModal from './Modal/AddChannelModal'
@@ -14,10 +23,11 @@ import { useSocketContext } from '@/hooks/useSocket'
 import {
   addMessage,
   selectMessagesByChannelId,
-  selectTotalMessages,
+  selectTotalMessagesByChannelId,
   setMessages,
 } from '@/redux/slices/messagesSlice'
 import { selectUser } from '@/redux/selectors/selectAuth'
+import getTextForMessage from '@/utils/getTextForMessage/getTextForMessage'
 
 const modalTypes = {
   nomodal: 'nomodal',
@@ -29,9 +39,10 @@ const modalTypes = {
 const ChatBox = () => {
   const dispatch = useDispatch()
   const channels = useSelector(selectAllChannels)
+  const channelEntities = useSelector(selectChannelEntities)
   const currentChannel = useSelector(selectActiveChannel)
   const messagesByChannel = useSelector(selectMessagesByChannelId)
-  const totalMessages = useSelector(selectTotalMessages)
+  const totalMessagesById = useSelector(selectTotalMessagesByChannelId)
   const user = useSelector(selectUser)
 
   const [modalType, setModalType] = useState(modalTypes.nomodal)
@@ -50,7 +61,26 @@ const ChatBox = () => {
     socket.on('newMessage', (message) => {
       dispatch(addMessage(message))
     })
-  }, [socket])
+    socket.on('newChannel', (channel) => {
+      dispatch(addChannel(channel))
+    })
+    socket.on('removeChannel', ({ id }) => {
+      if (currentChannel === id) {
+        dispatch(setDefaultActiveChannel())
+      }
+      dispatch(removeChannel(id))
+    })
+    socket.on('renameChannel', (channelInfo) => {
+      dispatch(
+        updateChannel({
+          id: channelInfo.id,
+          changes: {
+            name: channelInfo.name,
+          },
+        })
+      )
+    })
+  }, [socket, currentChannel])
 
   useEffect(() => {
     const fetchChatData = async () => {
@@ -90,17 +120,35 @@ const ChatBox = () => {
     setModalOpen(true)
   }
   const handleModalAddChannel = (name) => {
-    console.log(`some side logic - Add modal with name ${name}`)
+    // TODO channel name must be unique
+    socket.emit('newChannel', { name }, (data) => {
+      if (data.status === 'ok') {
+        // some logic
+        dispatch(addChannel(data.data))
+        dispatch(setActiveChannel(data.data.id))
+      }
+    })
   }
   const handleModalDeleteChannel = () => {
     // itemIdx
     console.log(`some side logic - Delete modal with item ${itemIdx}`)
+    socket.emit('removeChannel', { id: itemIdx }, (data) => {
+      if (data.status === 'ok') {
+        // some logic
+      }
+    })
   }
   const handleModalRenameChannel = (name) => {
     // itemIdx
     console.log(`some side logic - Rename modal to ${name} with item ${itemIdx}`)
+    socket.emit('renameChannel', { id: itemIdx, name }, (data) => {
+      if (data.status === 'ok') {
+        // some logic
+      }
+    })
   }
   const renderModal = () => {
+    // TODO provide validation callback to add modal
     switch (modalType) {
       case modalTypes.addChannel: {
         return (
@@ -112,7 +160,7 @@ const ChatBox = () => {
         )
       }
       case modalTypes.renameChannel: {
-        const { name } = channels[itemIdx - 1]
+        const { name } = channelEntities[itemIdx]
         return (
           <RenameChannelModal
             name={name}
@@ -164,8 +212,8 @@ const ChatBox = () => {
         </Col>
         <Col xs={8} sm={9} lg={10} className="h-100 bg-light p-0">
           <Messages
-            title={channels[currentChannel - 1]?.name}
-            description={`${totalMessages} сообщений`}
+            title={channelEntities[currentChannel]?.name}
+            description={getTextForMessage(totalMessagesById)}
             form={<MessageForm onSubmit={handleSendMessage} />}
           >
             {messagesByChannel.map((message) => (
