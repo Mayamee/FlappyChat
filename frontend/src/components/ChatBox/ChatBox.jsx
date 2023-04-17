@@ -147,6 +147,9 @@ const ChatBox = () => {
     if (name.length === 0) {
       errors.name = 'Пустое название канала'
     }
+    if (name.length > 20) {
+      errors.name = 'Название канала не должно превышать 20 символов'
+    }
     channels.forEach((channel) => {
       if (channel.name === name) {
         errors.name = 'Канал с таким именем уже существует'

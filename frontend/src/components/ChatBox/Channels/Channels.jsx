@@ -2,6 +2,8 @@ import { PlusSquare } from 'react-bootstrap-icons'
 import { Nav } from 'react-bootstrap'
 import Channel from './Channel'
 
+const headerHeight = 80
+
 const Channels = ({
   activeChannel,
   channels,
@@ -24,7 +26,12 @@ const Channels = ({
   }
   return (
     <div className="chats-block d-flex flex-column h-100 w-100">
-      <div className="chats-header px-2 h-80px d-flex align-items-center border-bottom">
+      <div
+        className="chats-header px-2 d-flex align-items-center border-bottom"
+        style={{
+          height: headerHeight,
+        }}
+      >
         <div className="chats-header-title flex-fill">
           <b>Каналы</b>
         </div>
@@ -36,12 +43,17 @@ const Channels = ({
           <PlusSquare width={20} height={20} />
         </button>
       </div>
-      <div className="chats-body mt-2 flex-fill">
+      <div
+        className="chats-body mt-2 flex-fill overflow-auto"
+        style={{
+          height: `calc(100% - ${headerHeight}px)`,
+        }}
+      >
         <Nav
           onClick={handleChannelChange}
           as="ul"
           variant="pills"
-          className="nav-fill px-1 pb-2 h-100 d-block overflow-auto"
+          className="nav-fill px-1 pb-2 d-block"
         >
           {channels.map((channel) => (
             <Channel

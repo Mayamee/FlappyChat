@@ -2,7 +2,7 @@ import { ButtonGroup, Dropdown, Nav } from 'react-bootstrap'
 import clsx from 'clsx'
 
 const Channel = ({ id, name, active, removable, onDelete, onRename }) => {
-  const buttonClasses = clsx('w-100 rounded-0 text-start btn', {
+  const buttonClasses = clsx('w-100 rounded-0 text-start btn text-truncate', {
     'btn-secondary': active,
   })
   if (!removable) {

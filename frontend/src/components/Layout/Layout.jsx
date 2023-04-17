@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom'
 import selectAuth from '@/redux/selectors/selectAuth'
 import { logout } from '@/redux/slices/authSlice'
 
+const topBarHeight = 60
+
 const Layout = ({ children }) => {
   const isLogin = useSelector(selectAuth)
   const dispatch = useDispatch()
@@ -14,8 +16,12 @@ const Layout = ({ children }) => {
     dispatch(logout())
   }
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <header>
+    <div className="d-flex flex-column vh-100">
+      <header
+        style={{
+          height: topBarHeight,
+        }}
+      >
         <Navbar className="shadow-sm text-decoration-none" bg="white">
           <Container>
             <Navbar.Brand as={Link} to="/">
@@ -29,7 +35,14 @@ const Layout = ({ children }) => {
           </Container>
         </Navbar>
       </header>
-      <main className="flex-fill d-flex">{children}</main>
+      <main
+        className="flex-fill d-flex"
+        style={{
+          height: `calc(100% - ${topBarHeight}px)`,
+        }}
+      >
+        {children}
+      </main>
     </div>
   )
 }
