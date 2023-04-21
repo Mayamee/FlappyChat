@@ -1,5 +1,8 @@
 export default {
   translation: {
+    layout: {
+      logoutButton: 'Выйти',
+    },
     loginPage: {
       form: {
         title: 'Войти',
@@ -23,6 +26,7 @@ export default {
         loginInput: {
           placeholder: 'Имя пользователя',
           errorText: {
+            alreadyExsist: 'Пользователь с таким именем уже существует',
             min: 'Длина логина должна быть минимум 3 знака',
             required: 'Обязательное поле',
           },

@@ -28,7 +28,7 @@ const SignupForm = () => {
       dispatch(login(data.username))
     } catch (err) {
       if (err.isAxiosError && err.response.status === 409) {
-        actions.setFieldError('login', 'Пользователь с таким именем уже существует')
+        actions.setFieldError('login', t('signupPage.form.loginInput.errorText.alreadyExsist'))
         const { current: loginInput } = loginRef
         if (loginInput) {
           loginInput.focus()
