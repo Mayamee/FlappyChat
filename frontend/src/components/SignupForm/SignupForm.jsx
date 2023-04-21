@@ -5,6 +5,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel'
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import { useTranslation } from 'react-i18next'
 import signupSchema from '@/validation/signupSchema'
 import AuthService from '@/services/AuthService'
 import { login } from '@/redux/slices/authSlice'
@@ -18,6 +19,7 @@ const initialValues = {
 const SignupForm = () => {
   const loginRef = useRef(null)
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const onSubmitHandler = async (values, actions) => {
     try {
       const { data } = await AuthService.signup(values.login, values.password)
@@ -43,13 +45,17 @@ const SignupForm = () => {
     <Formik
       initialValues={initialValues}
       onSubmit={onSubmitHandler}
-      validationSchema={signupSchema}
+      validationSchema={signupSchema({
+        login: t('signupPage.form.loginInput.errorText'),
+        passoword: t('signupPage.form.passwordInput.errorText'),
+        confirmPassword: t('signupPage.form.confirmPasswordInput.errorText'),
+      })}
     >
       {({ values, errors, touched, handleBlur, handleChange, isSubmitting }) => (
         <FormikForm>
-          <h1 className="text-center mb-3">Регистрация</h1>
+          <h1 className="text-center mb-3">{t('signupPage.form.title')}</h1>
           <Form.Group className="mb-3">
-            <FloatingLabel controlId="login" label="Имя пользователя">
+            <FloatingLabel controlId="login" label={t('signupPage.form.loginInput.placeholder')}>
               <Form.Control
                 ref={loginRef}
                 value={values.login}
@@ -68,7 +74,10 @@ const SignupForm = () => {
             </FloatingLabel>
           </Form.Group>
           <Form.Group className="mb-3 position-relative">
-            <FloatingLabel controlId="password" label="Введите пароль">
+            <FloatingLabel
+              controlId="password"
+              label={t('signupPage.form.passwordInput.placeholder')}
+            >
               <Form.Control
                 value={values.password}
                 onBlur={handleBlur}
@@ -86,7 +95,10 @@ const SignupForm = () => {
             </FloatingLabel>
           </Form.Group>
           <Form.Group className="mb-3 position-relative">
-            <FloatingLabel controlId="password" label="Подтвердите пароль">
+            <FloatingLabel
+              controlId="password"
+              label={t('signupPage.form.confirmPasswordInput.placeholder')}
+            >
               <Form.Control
                 value={values.confirmPassword}
                 onBlur={handleBlur}
@@ -107,7 +119,7 @@ const SignupForm = () => {
             {isSubmitting && (
               <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
             )}
-            {!isSubmitting && 'Зарегистрироваться'}
+            {!isSubmitting && t('signupPage.form.submitButton')}
           </Button>
         </FormikForm>
       )}
