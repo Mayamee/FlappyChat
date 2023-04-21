@@ -46,12 +46,9 @@ const LoginForm = () => {
     <Formik initialValues={initialValues} onSubmit={onSubmitHandler} validationSchema={loginSchema}>
       {({ values, handleBlur, handleChange, isSubmitting }) => (
         <FormikForm>
-          <h1 className="text-center mb-3">{t('loginPage.loginForm.title')}</h1>
+          <h1 className="text-center mb-3">{t('loginPage.form.title')}</h1>
           <Form.Group className="mb-3">
-            <FloatingLabel
-              controlId="login"
-              label={t('loginPage.loginForm.loginInput.placeholder')}
-            >
+            <FloatingLabel controlId="login" label={t('loginPage.form.loginInput.placeholder')}>
               <Form.Control
                 ref={loginRef}
                 value={values.login}
@@ -74,7 +71,7 @@ const LoginForm = () => {
           >
             <FloatingLabel
               controlId="password"
-              label={t('loginPage.loginForm.passwordInput.placeholder')}
+              label={t('loginPage.form.passwordInput.placeholder')}
             >
               <Form.Control
                 value={values.password}
@@ -88,7 +85,7 @@ const LoginForm = () => {
                 required
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {t('loginPage.loginForm.passwordInput.errorText')}
+                {t('loginPage.form.passwordInput.errorText')}
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
@@ -96,7 +93,7 @@ const LoginForm = () => {
             {isSubmitting && (
               <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
             )}
-            {!isSubmitting && t('loginPage.loginForm.submitButton')}
+            {!isSubmitting && t('loginPage.form.submitButton')}
           </Button>
         </FormikForm>
       )}

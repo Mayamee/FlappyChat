@@ -1,7 +1,7 @@
 export default {
   translation: {
     loginPage: {
-      loginForm: {
+      form: {
         title: 'Войти',
         loginInput: {
           placeholder: 'Ваш ник',
