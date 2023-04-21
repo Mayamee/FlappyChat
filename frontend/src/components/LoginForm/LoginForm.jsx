@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useRef, useState } from 'react'
 import { Form as FormikForm, Formik } from 'formik'
@@ -17,6 +18,7 @@ const initialValues = {
 
 const LoginForm = () => {
   const [authFailed, setAuthFailed] = useState(false)
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const loginRef = useRef(null)
   const onSubmitHandler = async (values, actions) => {
@@ -44,9 +46,12 @@ const LoginForm = () => {
     <Formik initialValues={initialValues} onSubmit={onSubmitHandler} validationSchema={loginSchema}>
       {({ values, handleBlur, handleChange, isSubmitting }) => (
         <FormikForm>
-          <h1 className="text-center mb-3">Войти</h1>
+          <h1 className="text-center mb-3">{t('loginPage.loginForm.title')}</h1>
           <Form.Group className="mb-3">
-            <FloatingLabel controlId="login" label="Ваш ник">
+            <FloatingLabel
+              controlId="login"
+              label={t('loginPage.loginForm.loginInput.placeholder')}
+            >
               <Form.Control
                 ref={loginRef}
                 value={values.login}
@@ -67,7 +72,10 @@ const LoginForm = () => {
               'mb-5': authFailed,
             })}
           >
-            <FloatingLabel controlId="password" label="Введите пароль">
+            <FloatingLabel
+              controlId="password"
+              label={t('loginPage.loginForm.passwordInput.placeholder')}
+            >
               <Form.Control
                 value={values.password}
                 onBlur={handleBlur}
@@ -80,7 +88,7 @@ const LoginForm = () => {
                 required
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                Неверный логин или пароль
+                {t('loginPage.loginForm.passwordInput.errorText')}
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>
@@ -88,7 +96,7 @@ const LoginForm = () => {
             {isSubmitting && (
               <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
             )}
-            {!isSubmitting && 'Войти'}
+            {!isSubmitting && t('loginPage.loginForm.submitButton')}
           </Button>
         </FormikForm>
       )}
