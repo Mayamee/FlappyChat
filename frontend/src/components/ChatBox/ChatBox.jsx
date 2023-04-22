@@ -88,6 +88,15 @@ const ChatBox = () => {
         })
       )
     })
+    // eslint-disable-next-line consistent-return
+    return () => {
+      socket.off('connect')
+      socket.off('disconnect')
+      socket.off('newMessage')
+      socket.off('newChannel')
+      socket.off('removeChannel')
+      socket.off('renameChannel')
+    }
   }, [socket, currentChannel])
 
   useLayoutEffect(() => {
@@ -106,8 +115,10 @@ const ChatBox = () => {
         if (error.response && error.response.status === 401) {
           localStorage.removeItem('authData')
           dispatch(logout())
+          toast.error(t('chatPage.toasts.sessionExpired'))
           return
         }
+        toast.error(t('chatPage.toasts.fetchingError'))
         setFetchingError(error)
       } finally {
         setFetching(false)

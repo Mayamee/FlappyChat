@@ -4,11 +4,18 @@ export default {
       brand: 'Hexlet Chat',
       logoutButton: 'Выйти',
     },
+    notFoundPage: {
+      title: 'Страница не найдена',
+      text: 'Но вы можете перейти',
+      link: 'на главную страницу',
+    },
     chatPage: {
       toasts: {
         channelAdded: 'Канал {{name}} был успешно добавлен',
         channelRemoved: 'Канал {{name}} был успешно удален',
         channelRenamed: 'Канал {{name}} был успешно переименован',
+        sessionExpired: 'Ваша сессия истекла. Пожалуйста, войдите заново',
+        fetchingError: 'Ошибка при получении данных с сервера',
       },
       error: {
         text: 'Что то пошло не так. Перезагрузите страницу или повторите попытку позже.',
@@ -26,7 +33,6 @@ export default {
           channelName: '{{name}}',
           messagesCounter_zero: 'Нет сообщений',
           messagesCounter_one: '{{count}} сообщение',
-          messagesCounter_two: '{{count}} сообщения',
           messagesCounter_few: '{{count}} сообщения',
           messagesCounter_many: '{{count}} сообщений',
         },
