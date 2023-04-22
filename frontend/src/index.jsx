@@ -7,6 +7,7 @@ import App from '@/components/App'
 import store from '@/redux/store'
 import resources from '@/i18n'
 import './index.scss'
+import 'react-toastify/dist/ReactToastify.min.css'
 
 const init = async () => {
   const i18n = i18next.createInstance()

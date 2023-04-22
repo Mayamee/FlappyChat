@@ -5,6 +5,11 @@ export default {
       logoutButton: 'Выйти',
     },
     chatPage: {
+      toasts: {
+        channelAdded: 'Канал {{name}} был успешно добавлен',
+        channelRemoved: 'Канал {{name}} был успешно удален',
+        channelRenamed: 'Канал {{name}} был успешно переименован',
+      },
       error: {
         text: 'Что то пошло не так. Перезагрузите страницу или повторите попытку позже.',
         button: 'Повторить попытку',

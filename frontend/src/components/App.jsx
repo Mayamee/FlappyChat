@@ -1,3 +1,4 @@
+import { ToastContainer, toast } from 'react-toastify'
 import { Routes, Route } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
@@ -47,6 +48,7 @@ const App = () => {
         />
         <Route path="*" element={<Page404 />} />
       </Routes>
+      <ToastContainer position={toast.POSITION.TOP_RIGHT} />
     </Layout>
   )
 }

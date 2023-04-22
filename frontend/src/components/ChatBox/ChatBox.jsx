@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -138,23 +139,23 @@ const ChatBox = () => {
   const handleModalAddChannel = (name) => {
     socket.emit('newChannel', { name }, (data) => {
       if (data.status === 'ok') {
-        // some logic
         dispatch(addChannel(data.data))
         dispatch(setActiveChannel(data.data.id))
+        toast.success(t('chatPage.toasts.channelAdded', { name }))
       }
     })
   }
   const handleModalDeleteChannel = () => {
     socket.emit('removeChannel', { id: itemIdx }, (data) => {
       if (data.status === 'ok') {
-        // some logic
+        toast.success(t('chatPage.toasts.channelRemoved', { name: channelEntities[itemIdx].name }))
       }
     })
   }
   const handleModalRenameChannel = (name) => {
     socket.emit('renameChannel', { id: itemIdx, name }, (data) => {
       if (data.status === 'ok') {
-        // some logic
+        toast.success(t('chatPage.toasts.channelRenamed', { name: channelEntities[itemIdx].name }))
       }
     })
   }
