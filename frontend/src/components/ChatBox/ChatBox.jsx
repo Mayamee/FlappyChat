@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Col, Row } from 'react-bootstrap'
+import { Button, Col, Row, Spinner } from 'react-bootstrap'
 import {
   setActiveChannel,
   setChannels,
@@ -28,6 +28,8 @@ import {
   setMessages,
 } from '@/redux/slices/messagesSlice'
 import { selectUser } from '@/redux/selectors/selectAuth'
+import { logout } from '@/redux/slices/authSlice'
+import Error from './Error/Error'
 
 const modalTypes = {
   nomodal: 'nomodal',
@@ -49,6 +51,10 @@ const ChatBox = () => {
   const [modalType, setModalType] = useState(modalTypes.nomodal)
   const [itemIdx, setItemIdx] = useState(null)
   const [isModalOpen, setModalOpen] = useState(false)
+
+  const [isFetching, setFetching] = useState(false)
+  const [fetchingError, setFetchingError] = useState(null)
+  const [retryCount, setRetryCount] = useState(0)
 
   const socket = useSocketContext()
   useEffect(() => {
@@ -83,22 +89,31 @@ const ChatBox = () => {
     })
   }, [socket, currentChannel])
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchChatData = async () => {
       const authData = localStorage.getItem('authData')
       if (!authData) throw new Error('No auth token provided')
       const data = JSON.parse(authData)
       try {
+        setFetching(true)
+        setFetchingError(null)
         const { data: response } = await ChatService.getChannelsData(data.token)
         dispatch(setActiveChannel(response.currentChannelId))
         dispatch(setChannels(response.channels))
         dispatch(setMessages(response.messages))
       } catch (error) {
-        console.log(error)
+        if (error.response && error.response.status === 401) {
+          localStorage.removeItem('authData')
+          dispatch(logout())
+          return
+        }
+        setFetchingError(error)
+      } finally {
+        setFetching(false)
       }
     }
     fetchChatData()
-  }, [])
+  }, [retryCount])
   const handleCloseModal = () => {
     setModalOpen(false)
     setTimeout(() => {
@@ -209,6 +224,34 @@ const ChatBox = () => {
       }
     })
   }
+
+  const handleRetry = () => setRetryCount((p) => p + 1)
+
+  if (isFetching) {
+    return (
+      <div className="d-flex align-items-center justify-content-center h-100 w-100">
+        <Spinner as="span" animation="border" size="xl" role="status" aria-hidden="true" />
+      </div>
+    )
+  }
+  if (fetchingError) {
+    return (
+      <Error>
+        <div className="text-center">
+          <div
+            className="mb-3 h5"
+            style={{
+              maxWidth: '600px',
+            }}
+          >
+            {t('chatPage.error.text')}
+          </div>
+          <Button onClick={handleRetry}>{t('chatPage.error.button')}</Button>
+        </div>
+      </Error>
+    )
+  }
+
   return (
     <>
       <Row className="h-100 shadow">

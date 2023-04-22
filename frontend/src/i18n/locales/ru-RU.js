@@ -5,6 +5,10 @@ export default {
       logoutButton: 'Выйти',
     },
     chatPage: {
+      error: {
+        text: 'Что то пошло не так. Перезагрузите страницу или повторите попытку позже.',
+        button: 'Повторить попытку',
+      },
       channels: {
         header: 'Каналы',
         dropMenu: {
