@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
         <Navbar className="shadow-sm text-decoration-none" bg="white">
           <Container>
             <Navbar.Brand as={Link} to="/">
-              Hexlet Chat
+              {t('layout.brand')}
             </Navbar.Brand>
             {isLogin && (
               <Button onClick={logoutHandler} variant="primary">

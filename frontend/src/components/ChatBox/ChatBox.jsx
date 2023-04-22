@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
@@ -27,7 +28,6 @@ import {
   setMessages,
 } from '@/redux/slices/messagesSlice'
 import { selectUser } from '@/redux/selectors/selectAuth'
-import getTextForMessage from '@/utils/getTextForMessage/getTextForMessage'
 
 const modalTypes = {
   nomodal: 'nomodal',
@@ -38,6 +38,7 @@ const modalTypes = {
 
 const ChatBox = () => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const channels = useSelector(selectAllChannels)
   const channelEntities = useSelector(selectChannelEntities)
   const currentChannel = useSelector(selectActiveChannel)
@@ -145,14 +146,14 @@ const ChatBox = () => {
   const handleValidateChannel = ({ name }) => {
     const errors = {}
     if (name.length === 0) {
-      errors.name = 'Пустое название канала'
+      errors.name = t('chatPage.modals.errors.emptyLength')
     }
     if (name.length > 20) {
-      errors.name = 'Название канала не должно превышать 20 символов'
+      errors.name = t('chatPage.modals.errors.minLength')
     }
     channels.forEach((channel) => {
       if (channel.name === name) {
-        errors.name = 'Канал с таким именем уже существует'
+        errors.name = t('chatPage.modals.errors.alreadyExist')
       }
     })
     return errors
@@ -223,8 +224,12 @@ const ChatBox = () => {
         </Col>
         <Col xs={8} sm={9} lg={10} className="h-100 bg-light p-0">
           <Messages
-            title={channelEntities[currentChannel]?.name}
-            description={getTextForMessage(totalMessagesById)}
+            title={t('chatPage.messages.header.channelName', {
+              name: channelEntities[currentChannel]?.name,
+            })}
+            description={t('chatPage.messages.header.messagesCounter', {
+              count: totalMessagesById,
+            })}
             form={<MessageForm onSubmit={handleSendMessage} />}
           >
             {messagesByChannel.map((message) => (

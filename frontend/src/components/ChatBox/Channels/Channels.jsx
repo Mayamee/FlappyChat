@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { PlusSquare } from 'react-bootstrap-icons'
 import { Nav } from 'react-bootstrap'
 import Channel from './Channel'
@@ -12,6 +13,7 @@ const Channels = ({
   onChannelRename,
   onChannelAdd,
 }) => {
+  const { t } = useTranslation()
   if (channels.length === 0) return 'No channels'
   const handleChannelChange = (e) => {
     const id = Number(e.target.dataset.id)
@@ -33,7 +35,7 @@ const Channels = ({
         }}
       >
         <div className="chats-header-title flex-fill">
-          <b>Каналы</b>
+          <b>{t('chatPage.channels.header')}</b>
         </div>
         <button
           onClick={onChannelAdd}

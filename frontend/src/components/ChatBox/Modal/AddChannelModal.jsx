@@ -1,6 +1,7 @@
 import { useFormik } from 'formik'
 import { useEffect, useRef } from 'react'
 import { Button, Form, FormGroup, InputGroup, Modal } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 
 const AddChannelModal = ({
   show,
@@ -8,6 +9,7 @@ const AddChannelModal = ({
   onHide: closeHandler,
   onValidate: validateHandler,
 }) => {
+  const { t } = useTranslation()
   const inputRef = useRef(null)
   const f = useFormik({
     initialValues: {
@@ -30,10 +32,10 @@ const AddChannelModal = ({
   return (
     <Modal show={show} onHide={hideHandler} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Введите имя канала</Modal.Title>
+        <Modal.Title>{t('chatPage.modals.addModal.header')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form noValidate onSubmit={f.handleSubmit}>
+        <Form autoComplete="off" noValidate onSubmit={f.handleSubmit}>
           <InputGroup className="mb-3" hasValidation>
             <Form.Control
               ref={inputRef}
@@ -48,10 +50,10 @@ const AddChannelModal = ({
           </InputGroup>
           <FormGroup className="text-end">
             <Button type="submit" variant="primary" className="me-2">
-              Добавить
+              {t('chatPage.modals.addModal.buttons.submit')}
             </Button>
             <Button variant="secondary" onClick={hideHandler}>
-              Отмена
+              {t('chatPage.modals.addModal.buttons.cancel')}
             </Button>
           </FormGroup>
         </Form>

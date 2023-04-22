@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { Stack } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 
 const headerHeight = 80
 
 const Messages = ({ title, description, children, form }) => {
+  const { t } = useTranslation()
   const messageBoxRef = useRef(null)
   useEffect(() => {
     if (messageBoxRef.current) {
@@ -11,7 +13,7 @@ const Messages = ({ title, description, children, form }) => {
     }
   }, [children])
   const renderChildren = (data) => {
-    if (!data || data?.length === 0) return <div>Нет сообщений</div>
+    if (!data || data?.length === 0) return <div>{t('chatPage.messages.body.placeholder')}</div>
     return data
   }
   return (

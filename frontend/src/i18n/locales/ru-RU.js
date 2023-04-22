@@ -1,7 +1,61 @@
 export default {
   translation: {
     layout: {
+      brand: 'Hexlet Chat',
       logoutButton: 'Выйти',
+    },
+    chatPage: {
+      channels: {
+        header: 'Каналы',
+        dropMenu: {
+          remove: 'Удалить',
+          rename: 'Переименовать',
+        },
+      },
+      messages: {
+        header: {
+          channelName: '{{name}}',
+          messagesCounter_zero: 'Нет сообщений',
+          messagesCounter_one: '{{count}} сообщение',
+          messagesCounter_two: '{{count}} сообщения',
+          messagesCounter_few: '{{count}} сообщения',
+          messagesCounter_many: '{{count}} сообщений',
+        },
+        body: {
+          placeholder: 'Нет сообщений',
+        },
+        form: {
+          placeholder: 'Введите сообщение...',
+        },
+      },
+      modals: {
+        addModal: {
+          header: 'Введите название канала',
+          buttons: {
+            submit: 'Добавить',
+            cancel: 'Отмена',
+          },
+        },
+        renameModal: {
+          header: 'Введите новое название канала',
+          buttons: {
+            submit: 'Переименовать',
+            cancel: 'Отмена',
+          },
+        },
+        removeModal: {
+          header: 'Вы действительно хотите удалить?',
+          buttons: {
+            submit: 'Удалить',
+            cancel: 'Отмена',
+          },
+        },
+        errors: {
+          emptyLength: 'Пустое название канала',
+          minLength: 'Название канала не должно превышать 20 символов',
+          alreadyExist: 'Название канала не должно превышать 20 символов',
+        },
+      },
     },
     loginPage: {
       form: {
@@ -26,7 +80,7 @@ export default {
         loginInput: {
           placeholder: 'Имя пользователя',
           errorText: {
-            alreadyExsist: 'Пользователь с таким именем уже существует',
+            alreadyExist: 'Пользователь с таким именем уже существует',
             min: 'Длина логина должна быть минимум 3 знака',
             required: 'Обязательное поле',
           },

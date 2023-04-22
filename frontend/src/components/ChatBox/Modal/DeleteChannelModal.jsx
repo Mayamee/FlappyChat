@@ -1,6 +1,8 @@
 import { Button, Modal } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 
 const DeleteChannelModal = ({ show, onAction: doAction, onHide: closeHandler }) => {
+  const { t } = useTranslation()
   const handleClick = () => {
     doAction()
     closeHandler()
@@ -13,10 +15,10 @@ const DeleteChannelModal = ({ show, onAction: doAction, onHide: closeHandler }) 
       <Modal.Body>
         <div className="text-end">
           <Button onClick={handleClick} variant="danger" className="me-2">
-            Удалить
+            {t('chatPage.modals.removeModal.buttons.submit')}
           </Button>
           <Button variant="secondary" onClick={closeHandler}>
-            Отмена
+            {t('chatPage.modals.removeModal.buttons.cancel')}
           </Button>
         </div>
       </Modal.Body>

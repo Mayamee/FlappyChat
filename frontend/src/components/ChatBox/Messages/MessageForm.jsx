@@ -1,8 +1,10 @@
 import { useFormik } from 'formik'
 import { Button, InputGroup, Form } from 'react-bootstrap'
 import { SendPlus } from 'react-bootstrap-icons'
+import { useTranslation } from 'react-i18next'
 
 const MessageForm = ({ onSubmit: submitHandler }) => {
+  const { t } = useTranslation()
   const formik = useFormik({
     initialValues: {
       message: '',
@@ -26,7 +28,7 @@ const MessageForm = ({ onSubmit: submitHandler }) => {
     <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
       <InputGroup>
         <Form.Control
-          placeholder="Введите ваше сообщение"
+          placeholder={t('chatPage.messages.form.placeholder')}
           aria-label="message"
           aria-describedby="submit-message"
           value={formik.values.message}

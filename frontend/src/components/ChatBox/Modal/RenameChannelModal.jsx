@@ -1,6 +1,7 @@
 import { useFormik } from 'formik'
 import { useEffect, useRef } from 'react'
 import { Button, Form, FormGroup, InputGroup, Modal } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 
 const RenameChannelModal = ({
   name: currentName,
@@ -9,6 +10,7 @@ const RenameChannelModal = ({
   onHide: closeHandler,
   onValidate: validateHandler,
 }) => {
+  const { t } = useTranslation()
   const inputRef = useRef(null)
   const f = useFormik({
     initialValues: {
@@ -32,10 +34,10 @@ const RenameChannelModal = ({
   return (
     <Modal show={show} onHide={hideHandler} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Введите новое имя канала</Modal.Title>
+        <Modal.Title>{t('chatPage.modals.renameModal.header')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form noValidate onSubmit={f.handleSubmit}>
+        <Form autoComplete="off" noValidate onSubmit={f.handleSubmit}>
           <InputGroup className="mb-3" hasValidation>
             <Form.Control
               ref={inputRef}
@@ -50,10 +52,10 @@ const RenameChannelModal = ({
           </InputGroup>
           <FormGroup className="text-end">
             <Button type="submit" variant="primary" className="me-2">
-              Переименовать
+              {t('chatPage.modals.renameModal.buttons.submit')}
             </Button>
             <Button variant="secondary" onClick={hideHandler}>
-              Отмена
+              {t('chatPage.modals.renameModal.buttons.cancel')}
             </Button>
           </FormGroup>
         </Form>
