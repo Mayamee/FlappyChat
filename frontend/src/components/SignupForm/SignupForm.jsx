@@ -46,9 +46,15 @@ const SignupForm = () => {
       initialValues={initialValues}
       onSubmit={onSubmitHandler}
       validationSchema={signupSchema({
-        login: t('signupPage.form.loginInput.errorText'),
-        passoword: t('signupPage.form.passwordInput.errorText'),
-        confirmPassword: t('signupPage.form.confirmPasswordInput.errorText'),
+        login: t('signupPage.form.loginInput.errorText', {
+          returnObjects: true,
+        }),
+        passoword: t('signupPage.form.passwordInput.errorText', {
+          returnObjects: true,
+        }),
+        confirmPassword: t('signupPage.form.confirmPasswordInput.errorText', {
+          returnObjects: true,
+        }),
       })}
     >
       {({ values, errors, touched, handleBlur, handleChange, isSubmitting }) => (
