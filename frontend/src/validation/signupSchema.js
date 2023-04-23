@@ -1,4 +1,5 @@
-import * as yup from 'yup'
+/* eslint-disable implicit-arrow-linebreak */
+import * as yup from 'yup';
 
 export default (text) =>
   yup.object().shape({
@@ -14,4 +15,4 @@ export default (text) =>
     confirmPassword: yup
       .string()
       .oneOf([yup.ref('password'), null], text.confirmPassword || 'Пароли должны совпадать'),
-  })
+  });

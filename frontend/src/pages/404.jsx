@@ -1,13 +1,13 @@
-import { useTranslation } from 'react-i18next'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Image from 'react-bootstrap/Image'
-import { Link } from 'react-router-dom'
-import notFoundIcon from '@/assets/icons/404.svg'
+import { useTranslation } from 'react-i18next';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
+import { Link } from 'react-router-dom';
+import notFoundIcon from '@/assets/icons/404.svg';
 
 const Page404 = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   return (
     <Container fluid>
       <Row className="h-100 justify-content-center align-items-center">
@@ -16,7 +16,8 @@ const Page404 = () => {
             <Image src={notFoundIcon} className="w-100" />
             <h1 className="text-center h4 mt-4">{t('notFoundPage.title')}</h1>
             <p>
-              {t('notFoundPage.text')}&nbsp;
+              {t('notFoundPage.text')}
+              &nbsp;
               <Link to="/" replace>
                 {t('notFoundPage.link')}
               </Link>
@@ -25,7 +26,7 @@ const Page404 = () => {
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default Page404
+export default Page404;

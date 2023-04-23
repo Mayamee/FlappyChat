@@ -1,46 +1,46 @@
-import { useDispatch } from 'react-redux'
-import { useRef } from 'react'
-import { Form as FormikForm, Formik } from 'formik'
-import FloatingLabel from 'react-bootstrap/FloatingLabel'
-import Spinner from 'react-bootstrap/Spinner'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import { useTranslation } from 'react-i18next'
-import signupSchema from '@/validation/signupSchema'
-import AuthService from '@/services/AuthService'
-import { login } from '@/redux/slices/authSlice'
+import { useDispatch } from 'react-redux';
+import { useRef } from 'react';
+import { Form as FormikForm, Formik } from 'formik';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Spinner from 'react-bootstrap/Spinner';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { useTranslation } from 'react-i18next';
+import signupSchema from '@/validation/signupSchema';
+import AuthService from '@/services/AuthService';
+import { login } from '@/redux/slices/authSlice';
 
 const initialValues = {
   login: '',
   password: '',
   confirmPassword: '',
-}
+};
 
 const SignupForm = () => {
-  const loginRef = useRef(null)
-  const dispatch = useDispatch()
-  const { t } = useTranslation()
+  const loginRef = useRef(null);
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
   const onSubmitHandler = async (values, actions) => {
     try {
-      const { data } = await AuthService.signup(values.login, values.password)
-      if (!data.token) throw new Error('No token in response')
-      localStorage.setItem('authData', JSON.stringify(data))
-      dispatch(login(data.username))
+      const { data } = await AuthService.signup(values.login, values.password);
+      if (!data.token) throw new Error('No token in response');
+      localStorage.setItem('authData', JSON.stringify(data));
+      dispatch(login(data.username));
     } catch (err) {
       if (err.isAxiosError && err.response.status === 409) {
-        actions.setFieldError('login', t('signupPage.form.loginInput.errorText.alreadyExist'))
-        const { current: loginInput } = loginRef
+        actions.setFieldError('login', t('signupPage.form.loginInput.errorText.alreadyExist'));
+        const { current: loginInput } = loginRef;
         if (loginInput) {
-          loginInput.focus()
-          loginInput.select()
+          loginInput.focus();
+          loginInput.select();
         }
-        return
+        return;
       }
-      throw err
+      throw err;
     } finally {
-      actions.setSubmitting(false)
+      actions.setSubmitting(false);
     }
-  }
+  };
   return (
     <Formik
       initialValues={initialValues}
@@ -57,7 +57,9 @@ const SignupForm = () => {
         }),
       })}
     >
-      {({ values, errors, touched, handleBlur, handleChange, isSubmitting }) => (
+      {({
+        values, errors, touched, handleBlur, handleChange, isSubmitting,
+      }) => (
         <FormikForm>
           <h1 className="text-center mb-3">{t('signupPage.form.title')}</h1>
           <Form.Group className="mb-3">
@@ -123,14 +125,14 @@ const SignupForm = () => {
           </Form.Group>
           <Button className="w-100" type="submit" variant="outline-primary" disabled={isSubmitting}>
             {isSubmitting && (
-              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
             )}
             {!isSubmitting && t('signupPage.form.submitButton')}
           </Button>
         </FormikForm>
       )}
     </Formik>
-  )
-}
+  );
+};
 
-export default SignupForm
+export default SignupForm;

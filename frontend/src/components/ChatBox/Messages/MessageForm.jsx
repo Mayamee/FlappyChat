@@ -1,11 +1,11 @@
-import { useFormik } from 'formik'
-import { useEffect } from 'react'
-import { Button, InputGroup, Form } from 'react-bootstrap'
-import { SendPlus } from 'react-bootstrap-icons'
-import { useTranslation } from 'react-i18next'
+import { useFormik } from 'formik';
+import { useEffect } from 'react';
+import { Button, InputGroup, Form } from 'react-bootstrap';
+import { SendPlus } from 'react-bootstrap-icons';
+import { useTranslation } from 'react-i18next';
 
 const MessageForm = ({ onSubmit: submitHandler }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const formik = useFormik({
     initialValues: {
       message: '',
@@ -14,28 +14,28 @@ const MessageForm = ({ onSubmit: submitHandler }) => {
       message: 'required',
     },
     validate: (values) => {
-      const errors = {}
+      const errors = {};
       if (values.message.length === 0) {
-        errors.message = 'required'
+        errors.message = 'required';
       }
-      return errors
+      return errors;
     },
     onSubmit: ({ message }, actions) => {
-      submitHandler(message)
-      actions.resetForm()
+      submitHandler(message);
+      actions.resetForm();
     },
-  })
+  });
   useEffect(() => {
     const enterPressHandler = (e) => {
       if (e.key === 'Enter') {
-        formik.handleSubmit()
+        formik.handleSubmit();
       }
-    }
-    document.addEventListener('keydown', enterPressHandler)
+    };
+    document.addEventListener('keydown', enterPressHandler);
     return () => {
-      document.removeEventListener('keydown', enterPressHandler)
-    }
-  }, [formik])
+      document.removeEventListener('keydown', enterPressHandler);
+    };
+  }, [formik]);
   return (
     <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
       <InputGroup>
@@ -52,7 +52,7 @@ const MessageForm = ({ onSubmit: submitHandler }) => {
         </Button>
       </InputGroup>
     </Form>
-  )
-}
+  );
+};
 
-export default MessageForm
+export default MessageForm;

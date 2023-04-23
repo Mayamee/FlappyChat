@@ -1,7 +1,9 @@
-import { useFormik } from 'formik'
-import { useEffect, useId, useRef } from 'react'
-import { Button, Form, FormGroup, InputGroup, Modal } from 'react-bootstrap'
-import { useTranslation } from 'react-i18next'
+import { useFormik } from 'formik';
+import { useEffect, useId, useRef } from 'react';
+import {
+  Button, Form, FormGroup, InputGroup, Modal,
+} from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const RenameChannelModal = ({
   name: currentName,
@@ -10,28 +12,28 @@ const RenameChannelModal = ({
   onHide: closeHandler,
   onValidate: validateHandler,
 }) => {
-  const { t } = useTranslation()
-  const inputRef = useRef(null)
+  const { t } = useTranslation();
+  const inputRef = useRef(null);
   const f = useFormik({
     initialValues: {
       name: currentName,
     },
     onSubmit: ({ name }) => {
-      doAction(name)
-      closeHandler()
+      doAction(name);
+      closeHandler();
     },
     validate: validateHandler,
-  })
+  });
   const hideHandler = () => {
-    f.resetForm()
-    closeHandler()
-  }
+    f.resetForm();
+    closeHandler();
+  };
   useEffect(() => {
-    if (inputRef.current === null) return
-    inputRef.current.focus()
-    inputRef.current.select()
-  }, [])
-  const inputId = useId()
+    if (inputRef.current === null) return;
+    inputRef.current.focus();
+    inputRef.current.select();
+  }, []);
+  const inputId = useId();
   return (
     <Modal show={show} onHide={hideHandler} centered>
       <Modal.Header closeButton>
@@ -66,7 +68,7 @@ const RenameChannelModal = ({
         </Form>
       </Modal.Body>
     </Modal>
-  )
-}
+  );
+};
 
-export default RenameChannelModal
+export default RenameChannelModal;

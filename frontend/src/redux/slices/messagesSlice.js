@@ -1,25 +1,25 @@
-import selectActiveChannel from '../selectors/selectActiveChannel'
-import { removeChannel } from './channelsSlice'
+import selectActiveChannel from '../selectors/selectActiveChannel';
+import { removeChannel } from './channelsSlice';
 
-const { createSlice, createEntityAdapter, createSelector } = require('@reduxjs/toolkit')
+const { createSlice, createEntityAdapter, createSelector } = require('@reduxjs/toolkit');
 
-const messagesAdapter = createEntityAdapter()
-const initialState = messagesAdapter.getInitialState()
+const messagesAdapter = createEntityAdapter();
+const initialState = messagesAdapter.getInitialState();
 
 export const { selectAll: selectAllMessages } = messagesAdapter.getSelectors(
-  (state) => state.messages
-)
+  (state) => state.messages,
+);
 
 export const selectMessagesByChannelId = createSelector(
   [selectAllMessages, selectActiveChannel],
-  (messages, channelId) => messages.filter((message) => message.channelId === channelId)
-)
+  (messages, channelId) => messages.filter((message) => message.channelId === channelId),
+);
 
 export const selectTotalMessagesByChannelId = createSelector(
   [selectMessagesByChannelId],
-  (messages) => messages.length
-)
-const { selectAll: selectMessagesInternally } = messagesAdapter.getSelectors()
+  (messages) => messages.length,
+);
+const { selectAll: selectMessagesInternally } = messagesAdapter.getSelectors();
 const messagesSlice = createSlice({
   name: 'messages',
   initialState,
@@ -29,16 +29,16 @@ const messagesSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(removeChannel, (state, { payload: channelId }) => {
-      const messages = selectMessagesInternally(state)
-      const messagesToDelete = messages.filter((message) => message.channelId === channelId)
+      const messages = selectMessagesInternally(state);
+      const messagesToDelete = messages.filter((message) => message.channelId === channelId);
       messagesAdapter.removeMany(
         state,
-        messagesToDelete.map((message) => message.id)
-      )
-    })
+        messagesToDelete.map((message) => message.id),
+      );
+    });
   },
-})
+});
 
-export const { addMessage, setMessages } = messagesSlice.actions
+export const { addMessage, setMessages } = messagesSlice.actions;
 
-export default messagesSlice.reducer
+export default messagesSlice.reducer;

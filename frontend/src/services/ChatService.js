@@ -1,5 +1,8 @@
-import axios from 'axios'
-import { API_URL } from '@/vars/api'
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable functional/no-this-expression */
+/* eslint-disable functional/no-class */
+import axios from 'axios';
+import { API_URL } from '@/vars/api';
 
 class ChatService {
   constructor() {
@@ -8,18 +11,17 @@ class ChatService {
       headers: {
         'Content-Type': 'application/json',
       },
-    })
+    });
   }
 
-  getChannelsData = (token, signal) => {
+  getChannelsData = (token, signal) =>
     // disable caching
-    return this.service.get(`/data?timestamp=${Date.now()}`, {
+    this.service.get(`/data?timestamp=${Date.now()}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
       signal,
-    })
-  }
+    });
 }
 
-export default new ChatService()
+export default new ChatService();

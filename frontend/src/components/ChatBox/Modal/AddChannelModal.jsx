@@ -1,7 +1,9 @@
-import { useFormik } from 'formik'
-import { useEffect, useId, useRef } from 'react'
-import { Button, Form, FormGroup, InputGroup, Modal } from 'react-bootstrap'
-import { useTranslation } from 'react-i18next'
+import { useFormik } from 'formik';
+import { useEffect, useId, useRef } from 'react';
+import {
+  Button, Form, FormGroup, InputGroup, Modal,
+} from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 const AddChannelModal = ({
   show,
@@ -9,27 +11,27 @@ const AddChannelModal = ({
   onHide: closeHandler,
   onValidate: validateHandler,
 }) => {
-  const { t } = useTranslation()
-  const inputRef = useRef(null)
+  const { t } = useTranslation();
+  const inputRef = useRef(null);
   const f = useFormik({
     initialValues: {
       name: '',
     },
     onSubmit: ({ name }) => {
-      doAction(name)
-      closeHandler()
+      doAction(name);
+      closeHandler();
     },
     validate: validateHandler,
-  })
+  });
   const hideHandler = () => {
-    f.resetForm()
-    closeHandler()
-  }
+    f.resetForm();
+    closeHandler();
+  };
   useEffect(() => {
-    if (inputRef.current === null) return
-    inputRef.current.focus()
-  }, [show])
-  const inputId = useId()
+    if (inputRef.current === null) return;
+    inputRef.current.focus();
+  }, [show]);
+  const inputId = useId();
   return (
     <Modal show={show} onHide={hideHandler} centered>
       <Modal.Header closeButton>
@@ -64,7 +66,7 @@ const AddChannelModal = ({
         </Form>
       </Modal.Body>
     </Modal>
-  )
-}
+  );
+};
 
-export default AddChannelModal
+export default AddChannelModal;
