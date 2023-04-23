@@ -9,7 +9,8 @@ import { AuthRoute, PrivateRoute } from '@/components/common/RouteGuards'
 import useCheckAuth from '@/hooks/useCheckAuth'
 
 const App = () => {
-  useCheckAuth()
+  const isAuthChecked = useCheckAuth()
+  if (!isAuthChecked) return null
   return (
     <Layout>
       <Routes>
