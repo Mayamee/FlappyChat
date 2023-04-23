@@ -14,6 +14,7 @@ import {
   setDefaultActiveChannel,
 } from '@/redux/slices/channelsSlice'
 import ChatService from '@/services/ChatService'
+import Error from './Error/Error'
 import Channels from './Channels/Channels'
 import AddChannelModal from './Modal/AddChannelModal'
 import RenameChannelModal from './Modal/RenameChannelModal'
@@ -30,7 +31,6 @@ import {
 } from '@/redux/slices/messagesSlice'
 import { selectUser } from '@/redux/selectors/selectAuth'
 import { logout } from '@/redux/slices/authSlice'
-import Error from './Error/Error'
 
 const modalTypes = {
   nomodal: 'nomodal',

@@ -22,30 +22,14 @@ const App = () => {
   return (
     <Layout>
       <Routes>
-        <Route
-          path="login"
-          element={
-            <AuthRoute>
-              <Login />
-            </AuthRoute>
-          }
-        />
-        <Route
-          path="signup"
-          element={
-            <AuthRoute>
-              <Signup />
-            </AuthRoute>
-          }
-        />
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <Chat />
-            </PrivateRoute>
-          }
-        />
+        <Route element={<AuthRoute />}>
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/test" element={<div>Test</div>} />
+          <Route path="/" element={<Chat />} />
+        </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>
       <ToastContainer position={toast.POSITION.TOP_RIGHT} />
