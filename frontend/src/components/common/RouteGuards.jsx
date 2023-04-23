@@ -11,5 +11,9 @@ export const PrivateRoute = () => {
 export const AuthRoute = () => {
   const isLogin = useSelector(selectAuth)
   const location = useLocation()
-  return isLogin ? <Navigate to="/" state={{ from: location }} /> : <Outlet />
+  return isLogin ? (
+    <Navigate to={location.state?.from || '/'} state={{ from: location }} />
+  ) : (
+    <Outlet />
+  )
 }
