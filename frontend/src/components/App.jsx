@@ -1,24 +1,15 @@
 import { ToastContainer, toast } from 'react-toastify'
 import { Routes, Route } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
 import Layout from '@/components/Layout/Layout'
 import Chat from '@/pages/Chat'
 import Login from '@/pages/Login'
 import Signup from '@/pages/Signup'
 import Page404 from '@/pages/404'
 import { AuthRoute, PrivateRoute } from '@/components/common/RouteGuards'
-import { login } from '@/redux/slices/authSlice'
+import useCheckAuth from '@/hooks/useCheckAuth'
 
 const App = () => {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    const authData = localStorage.getItem('authData')
-    if (authData) {
-      const data = JSON.parse(authData)
-      dispatch(login(data.username))
-    }
-  }, [])
+  useCheckAuth()
   return (
     <Layout>
       <Routes>
