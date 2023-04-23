@@ -79,7 +79,7 @@ export default {
           placeholder: 'Ваш ник',
         },
         passwordInput: {
-          placeholder: 'Ваш пароль',
+          placeholder: 'Пароль',
           errorText: 'Неверный логин или пароль',
         },
         submitButton: 'Войти',
