@@ -12,6 +12,7 @@ export const useSocket = (url, opts = {}) => {
     return () => {
       socketIO.disconnect()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [url])
   return socket
 }

@@ -98,6 +98,7 @@ const ChatBox = () => {
       socket.off('removeChannel')
       socket.off('renameChannel')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket, currentChannel])
 
   useLayoutEffect(() => {
@@ -140,6 +141,7 @@ const ChatBox = () => {
       isRequestCanceled = true
       abortController.abort()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [retryCount])
   const handleCloseModal = () => {
     setModalOpen(false)
