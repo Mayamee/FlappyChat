@@ -19,6 +19,7 @@ plugins:
   - functional
 
 rules:
+  import/prefer-default-export: 0
   implicit-arrow-linebreak: 0
   operator-linebreak: 0
   no-multi-spaces: 1

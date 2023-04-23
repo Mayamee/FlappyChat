@@ -1,10 +1,10 @@
 import axios from 'axios'
+import { API_URL } from '@/vars/api'
 
-const { REACT_APP_API_BASE_URL } = process.env || '/api/v1'
 class ChatService {
   constructor() {
     this.service = axios.create({
-      baseURL: REACT_APP_API_BASE_URL,
+      baseURL: API_URL,
       headers: {
         'Content-Type': 'application/json',
       },

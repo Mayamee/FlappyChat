@@ -130,6 +130,7 @@ const ChatBox = () => {
         }
         toast.error(t('chatPage.toasts.fetchingError'))
         setFetchingError(error)
+        throw error
       } finally {
         if (!isRequestCanceled) setFetching(false)
       }
