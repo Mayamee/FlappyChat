@@ -49,7 +49,7 @@ const SignupForm = () => {
         login: t('signupPage.form.loginInput.errorText', {
           returnObjects: true,
         }),
-        passoword: t('signupPage.form.passwordInput.errorText', {
+        password: t('signupPage.form.passwordInput.errorText', {
           returnObjects: true,
         }),
         confirmPassword: t('signupPage.form.confirmPasswordInput.errorText', {
