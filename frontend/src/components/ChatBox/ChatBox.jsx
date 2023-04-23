@@ -31,6 +31,7 @@ import {
 } from '@/redux/slices/messagesSlice'
 import { selectUser } from '@/redux/selectors/selectAuth'
 import { logout } from '@/redux/slices/authSlice'
+import profanityFilter from '@/utils/profanityFilter/profanityFilter'
 
 const modalTypes = {
   nomodal: 'nomodal',
@@ -237,9 +238,10 @@ const ChatBox = () => {
     }
   }
   const handleSendMessage = (text) => {
+    const filteredText = profanityFilter(text)
     if (!text) return
     const payload = {
-      body: text,
+      body: filteredText,
       channelId: currentChannel,
       username: user,
     }
