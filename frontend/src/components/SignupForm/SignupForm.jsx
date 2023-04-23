@@ -96,7 +96,7 @@ const SignupForm = () => {
           </Form.Group>
           <Form.Group className="mb-3 position-relative">
             <FloatingLabel
-              controlId="password"
+              controlId="confirmPassword"
               label={t('signupPage.form.confirmPasswordInput.placeholder')}
             >
               <Form.Control
