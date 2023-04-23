@@ -100,6 +100,9 @@ const ChatBox = () => {
   }, [socket, currentChannel])
 
   useLayoutEffect(() => {
+    // eslint-disable-next-line functional/no-let
+    let isRequestCanceled = false
+    const abortController = new AbortController()
     const fetchChatData = async () => {
       const authData = localStorage.getItem('authData')
       if (!authData) throw new Error('No auth token provided')
@@ -107,11 +110,17 @@ const ChatBox = () => {
       try {
         setFetching(true)
         setFetchingError(null)
-        const { data: response } = await ChatService.getChannelsData(data.token)
+        // eslint-disable-next-line no-promise-executor-return
+        const { data: response } = await ChatService.getChannelsData(
+          data.token,
+          abortController.signal
+        )
+        if (isRequestCanceled) return
         dispatch(setActiveChannel(response.currentChannelId))
         dispatch(setChannels(response.channels))
         dispatch(setMessages(response.messages))
       } catch (error) {
+        if (isRequestCanceled) return
         if (error.response && error.response.status === 401) {
           localStorage.removeItem('authData')
           dispatch(logout())
@@ -121,10 +130,14 @@ const ChatBox = () => {
         toast.error(t('chatPage.toasts.fetchingError'))
         setFetchingError(error)
       } finally {
-        setFetching(false)
+        if (!isRequestCanceled) setFetching(false)
       }
     }
     fetchChatData()
+    return () => {
+      isRequestCanceled = true
+      abortController.abort()
+    }
   }, [retryCount])
   const handleCloseModal = () => {
     setModalOpen(false)

@@ -11,11 +11,13 @@ class ChatService {
     })
   }
 
-  getChannelsData = (token) => {
-    return this.service.get('/data', {
+  getChannelsData = (token, signal) => {
+    // disable caching
+    return this.service.get(`/data?timestamp=${Date.now()}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      signal,
     })
   }
 }
