@@ -1,5 +1,5 @@
 import { useFormik } from 'formik'
-import { useEffect, useRef } from 'react'
+import { useEffect, useId, useRef } from 'react'
 import { Button, Form, FormGroup, InputGroup, Modal } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 
@@ -31,6 +31,7 @@ const RenameChannelModal = ({
     inputRef.current.focus()
     inputRef.current.select()
   }, [])
+  const inputId = useId()
   return (
     <Modal show={show} onHide={hideHandler} centered>
       <Modal.Header closeButton>
@@ -39,8 +40,12 @@ const RenameChannelModal = ({
       <Modal.Body>
         <Form autoComplete="off" noValidate onSubmit={f.handleSubmit}>
           <InputGroup className="mb-3" hasValidation>
+            <Form.Label className="visually-hidden" htmlFor={inputId}>
+              Имя канала
+            </Form.Label>
             <Form.Control
               ref={inputRef}
+              id={inputId}
               value={f.values.name}
               onChange={f.handleChange}
               isInvalid={f.errors.name}

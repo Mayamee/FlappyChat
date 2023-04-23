@@ -43,6 +43,7 @@ const Channels = ({
           className="p-0 btn text-primary btn-group-vertical"
         >
           <PlusSquare width={20} height={20} />
+          <span className="visually-hidden">+</span>
         </button>
       </div>
       <div

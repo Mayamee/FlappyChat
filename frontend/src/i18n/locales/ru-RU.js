@@ -11,9 +11,9 @@ export default {
     },
     chatPage: {
       toasts: {
-        channelAdded: 'Канал {{name}} был успешно добавлен',
-        channelRemoved: 'Канал {{name}} был успешно удален',
-        channelRenamed: 'Канал {{name}} был успешно переименован',
+        channelAdded: 'Канал создан',
+        channelRemoved: 'Канал удалён',
+        channelRenamed: 'Канал переименован',
         sessionExpired: 'Ваша сессия истекла. Пожалуйста, войдите заново',
         fetchingError: 'Ошибка при получении данных с сервера',
       },
@@ -44,21 +44,22 @@ export default {
       },
       modals: {
         addModal: {
-          header: 'Введите название канала',
+          header: 'Добавить канал',
           buttons: {
-            submit: 'Добавить',
+            submit: 'Отправить',
             cancel: 'Отмена',
           },
         },
         renameModal: {
-          header: 'Введите новое название канала',
+          header: 'Переименовать канал',
           buttons: {
-            submit: 'Переименовать',
+            submit: 'Отправить',
             cancel: 'Отмена',
           },
         },
         removeModal: {
-          header: 'Вы действительно хотите удалить?',
+          header: 'Удалить канал',
+          body: 'Уверены?',
           buttons: {
             submit: 'Удалить',
             cancel: 'Отмена',

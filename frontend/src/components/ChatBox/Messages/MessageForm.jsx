@@ -29,7 +29,7 @@ const MessageForm = ({ onSubmit: submitHandler }) => {
       <InputGroup>
         <Form.Control
           placeholder={t('chatPage.messages.form.placeholder')}
-          aria-label="message"
+          aria-label="Новое сообщение"
           aria-describedby="submit-message"
           value={formik.values.message}
           name="message"
