@@ -80,7 +80,7 @@ export default {
         },
         passwordInput: {
           placeholder: 'Пароль',
-          errorText: 'Неверный логин или пароль',
+          errorText: 'Неверные имя пользователя или пароль',
         },
         submitButton: 'Войти',
       },
