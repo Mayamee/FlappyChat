@@ -102,7 +102,7 @@ export default {
           },
         },
         passwordInput: {
-          placeholder: 'Введите пароль',
+          placeholder: 'Пароль',
           errorText: {
             min: 'Длина пароля должна быть минимум 6 знаков',
             required: 'Обязательное поле',
