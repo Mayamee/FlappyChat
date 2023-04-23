@@ -30,8 +30,7 @@ export default {
       },
       messages: {
         header: {
-          channelName: '{{name}}',
-          messagesCounter_zero: 'Нет сообщений',
+          channelName: '# {{name}}',
           messagesCounter_one: '{{count}} сообщение',
           messagesCounter_few: '{{count}} сообщения',
           messagesCounter_many: '{{count}} сообщений',
