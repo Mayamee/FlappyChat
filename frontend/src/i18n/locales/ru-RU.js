@@ -1,7 +1,7 @@
 export default {
   translation: {
     layout: {
-      brand: 'Hexlet Chat',
+      brand: 'Flappy Chat',
       logoutButton: 'Выйти',
     },
     notFoundPage: {
@@ -11,9 +11,9 @@ export default {
     },
     chatPage: {
       toasts: {
-        channelAdded: 'Канал создан',
-        channelRemoved: 'Канал удалён',
-        channelRenamed: 'Канал переименован',
+        channelAdded: 'Канал {{name}} был успешно добавлен',
+        channelRemoved: 'Канал {{name}} был успешно удален',
+        channelRenamed: 'Канал {{name}} был успешно переименован',
         sessionExpired: 'Ваша сессия истекла. Пожалуйста, войдите заново',
         fetchingError: 'Ошибка при получении данных с сервера',
       },
@@ -30,7 +30,8 @@ export default {
       },
       messages: {
         header: {
-          channelName: '# {{name}}',
+          channelName: '{{name}}',
+          messagesCounter_zero: 'Нет сообщений',
           messagesCounter_one: '{{count}} сообщение',
           messagesCounter_few: '{{count}} сообщения',
           messagesCounter_many: '{{count}} сообщений',
@@ -44,22 +45,22 @@ export default {
       },
       modals: {
         addModal: {
-          header: 'Добавить канал',
+          header: 'Введите название канала',
           buttons: {
-            submit: 'Отправить',
+            submit: 'Добавить',
             cancel: 'Отмена',
           },
         },
         renameModal: {
-          header: 'Переименовать канал',
+          header: 'Введите новое название канала',
           buttons: {
-            submit: 'Отправить',
+            submit: 'Переименовать',
             cancel: 'Отмена',
           },
         },
         removeModal: {
-          header: 'Удалить канал',
-          body: 'Уверены?',
+          header: 'Вы действительно хотите удалить?',
+          body: 'Удалить?',
           buttons: {
             submit: 'Удалить',
             cancel: 'Отмена',
@@ -79,8 +80,8 @@ export default {
           placeholder: 'Ваш ник',
         },
         passwordInput: {
-          placeholder: 'Пароль',
-          errorText: 'Неверные имя пользователя или пароль',
+          placeholder: 'Ваш пароль',
+          errorText: 'Неверный логин или пароль',
         },
         submitButton: 'Войти',
       },
@@ -96,15 +97,14 @@ export default {
           placeholder: 'Имя пользователя',
           errorText: {
             alreadyExist: 'Пользователь с таким именем уже существует',
-            min: 'От 3 до 20 символов',
-            max: 'От 3 до 20 символов',
+            min: 'Длина логина должна быть минимум 3 знака',
             required: 'Обязательное поле',
           },
         },
         passwordInput: {
-          placeholder: 'Пароль',
+          placeholder: 'Введите пароль',
           errorText: {
-            min: 'Не менее 6 символов',
+            min: 'Длина пароля должна быть минимум 5 знаков',
             required: 'Обязательное поле',
           },
         },
@@ -116,4 +116,4 @@ export default {
       },
     },
   },
-};
+}

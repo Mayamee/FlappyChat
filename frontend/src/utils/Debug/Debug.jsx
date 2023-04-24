@@ -1,9 +1,9 @@
-import { useFormikContext } from 'formik';
+import { useFormikContext } from 'formik'
 
 const Debug = () => {
-  const formik = useFormikContext();
+  const formik = useFormikContext()
   if (!formik) {
-    return null;
+    return null
   }
   return (
     <div
@@ -17,7 +17,7 @@ const Debug = () => {
         {JSON.stringify(formik, null, 2)}
       </pre>
     </div>
-  );
-};
+  )
+}
 
-export default Debug;
+export default Debug

@@ -1,5 +1,5 @@
-import ru from './locales/ru-RU';
+import ru from './locales/ru-RU'
 
 export default {
   ru,
-};
+}

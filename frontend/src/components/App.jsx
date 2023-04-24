@@ -1,16 +1,16 @@
-import { ToastContainer, toast } from 'react-toastify';
-import { Routes, Route } from 'react-router-dom';
-import Layout from '@/components/Layout/Layout';
-import Chat from '@/pages/Chat';
-import Login from '@/pages/Login';
-import Signup from '@/pages/Signup';
-import Page404 from '@/pages/404';
-import { AuthRoute, PrivateRoute } from '@/components/common/RouteGuards';
-import useCheckAuth from '@/hooks/useCheckAuth';
+import { ToastContainer, toast } from 'react-toastify'
+import { Routes, Route } from 'react-router-dom'
+import Layout from '@/components/Layout/Layout'
+import Chat from '@/pages/Chat'
+import Login from '@/pages/Login'
+import Signup from '@/pages/Signup'
+import Page404 from '@/pages/404'
+import { AuthRoute, PrivateRoute } from '@/components/common/RouteGuards'
+import useCheckAuth from '@/hooks/useCheckAuth'
 
 const App = () => {
-  const isAuthChecked = useCheckAuth();
-  if (!isAuthChecked) return null;
+  const isAuthChecked = useCheckAuth()
+  if (!isAuthChecked) return null
   return (
     <Layout>
       <Routes>
@@ -25,7 +25,7 @@ const App = () => {
       </Routes>
       <ToastContainer position={toast.POSITION.TOP_RIGHT} />
     </Layout>
-  );
-};
+  )
+}
 
-export default App;
+export default App

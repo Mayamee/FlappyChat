@@ -1,12 +1,12 @@
-import { Button, Modal } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import { Button, Modal } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 
 const DeleteChannelModal = ({ show, onAction: doAction, onHide: closeHandler }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation()
   const handleClick = () => {
-    doAction();
-    closeHandler();
-  };
+    doAction()
+    closeHandler()
+  }
   return (
     <Modal show={show} onHide={closeHandler} centered>
       <Modal.Header closeButton>
@@ -24,7 +24,7 @@ const DeleteChannelModal = ({ show, onAction: doAction, onHide: closeHandler }) 
         </div>
       </Modal.Body>
     </Modal>
-  );
-};
+  )
+}
 
-export default DeleteChannelModal;
+export default DeleteChannelModal

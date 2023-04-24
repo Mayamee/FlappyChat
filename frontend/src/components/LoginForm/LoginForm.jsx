@@ -1,52 +1,50 @@
-import clsx from 'clsx';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { useRef, useState } from 'react';
-import { Form as FormikForm, Formik } from 'formik';
-import Spinner from 'react-bootstrap/Spinner';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import AuthService from '@/services/AuthService';
-import loginSchema from '@/validation/loginSchema';
-import { login } from '@/redux/slices/authSlice';
+import clsx from 'clsx'
+import { useTranslation } from 'react-i18next'
+import { useDispatch } from 'react-redux'
+import { useRef, useState } from 'react'
+import { Form as FormikForm, Formik } from 'formik'
+import Spinner from 'react-bootstrap/Spinner'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import FloatingLabel from 'react-bootstrap/FloatingLabel'
+import AuthService from '@/services/AuthService'
+import loginSchema from '@/validation/loginSchema'
+import { login } from '@/redux/slices/authSlice'
 
 const initialValues = {
   login: '',
   password: '',
-};
+}
 
 const LoginForm = () => {
-  const [authFailed, setAuthFailed] = useState(false);
-  const { t } = useTranslation();
-  const dispatch = useDispatch();
-  const loginRef = useRef(null);
+  const [authFailed, setAuthFailed] = useState(false)
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const loginRef = useRef(null)
   const onSubmitHandler = async (values, actions) => {
     try {
-      const { data } = await AuthService.login(values.login, values.password);
-      if (!data.token) throw new Error('No token in response');
-      localStorage.setItem('authData', JSON.stringify(data));
-      dispatch(login(data.username));
+      const { data } = await AuthService.login(values.login, values.password)
+      if (!data.token) throw new Error('No token in response')
+      localStorage.setItem('authData', JSON.stringify(data))
+      dispatch(login(data.username))
     } catch (err) {
       if (err.isAxiosError && err.response.status === 401) {
-        const { current: loginInput } = loginRef;
+        const { current: loginInput } = loginRef
         if (loginInput) {
-          loginInput.focus();
-          loginInput.select();
+          loginInput.focus()
+          loginInput.select()
         }
-        setAuthFailed(true);
-        return;
+        setAuthFailed(true)
+        return
       }
-      throw err;
+      throw err
     } finally {
-      actions.setSubmitting(false);
+      actions.setSubmitting(false)
     }
-  };
+  }
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmitHandler} validationSchema={loginSchema}>
-      {({
-        values, handleBlur, handleChange, isSubmitting,
-      }) => (
+      {({ values, handleBlur, handleChange, isSubmitting }) => (
         <FormikForm>
           <h1 className="text-center mb-3">{t('loginPage.form.title')}</h1>
           <Form.Group className="mb-3">
@@ -93,14 +91,14 @@ const LoginForm = () => {
           </Form.Group>
           <Button className="w-100" type="submit" variant="outline-primary" disabled={isSubmitting}>
             {isSubmitting && (
-            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
             )}
             {!isSubmitting && t('loginPage.form.submitButton')}
           </Button>
         </FormikForm>
       )}
     </Formik>
-  );
-};
+  )
+}
 
-export default LoginForm;
+export default LoginForm

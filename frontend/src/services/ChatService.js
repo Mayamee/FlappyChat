@@ -1,8 +1,8 @@
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable functional/no-this-expression */
 /* eslint-disable functional/no-class */
-import axios from 'axios';
-import { API_URL } from '@/vars/api';
+import axios from 'axios'
+import { API_URL } from '@/vars/api'
 
 class ChatService {
   constructor() {
@@ -11,7 +11,7 @@ class ChatService {
       headers: {
         'Content-Type': 'application/json',
       },
-    });
+    })
   }
 
   getChannelsData = (token, signal) =>
@@ -21,7 +21,7 @@ class ChatService {
         Authorization: `Bearer ${token}`,
       },
       signal,
-    });
+    })
 }
 
-export default new ChatService();
+export default new ChatService()

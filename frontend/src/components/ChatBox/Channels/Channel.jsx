@@ -1,14 +1,12 @@
-import { ButtonGroup, Dropdown, Nav } from 'react-bootstrap';
-import clsx from 'clsx';
-import { useTranslation } from 'react-i18next';
+import { ButtonGroup, Dropdown, Nav } from 'react-bootstrap'
+import clsx from 'clsx'
+import { useTranslation } from 'react-i18next'
 
-const Channel = ({
-  id, name, active, removable, onDelete, onRename,
-}) => {
-  const { t } = useTranslation();
+const Channel = ({ id, name, active, removable, onDelete, onRename }) => {
+  const { t } = useTranslation()
   const buttonClasses = clsx('w-100 rounded-0 text-start btn text-truncate', {
     'btn-secondary': active,
-  });
+  })
   if (!removable) {
     return (
       <Nav.Item as="li">
@@ -17,7 +15,7 @@ const Channel = ({
           {name}
         </button>
       </Nav.Item>
-    );
+    )
   }
   return (
     <Nav.Item as="li">
@@ -35,6 +33,6 @@ const Channel = ({
         </Dropdown.Menu>
       </Dropdown>
     </Nav.Item>
-  );
-};
-export default Channel;
+  )
+}
+export default Channel

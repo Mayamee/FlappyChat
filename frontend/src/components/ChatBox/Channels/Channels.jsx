@@ -1,9 +1,9 @@
-import { useTranslation } from 'react-i18next';
-import { PlusSquare } from 'react-bootstrap-icons';
-import { Nav } from 'react-bootstrap';
-import Channel from './Channel';
+import { useTranslation } from 'react-i18next'
+import { PlusSquare } from 'react-bootstrap-icons'
+import { Nav } from 'react-bootstrap'
+import Channel from './Channel'
 
-const headerHeight = 80;
+const headerHeight = 80
 
 const Channels = ({
   activeChannel,
@@ -13,19 +13,19 @@ const Channels = ({
   onChannelRename,
   onChannelAdd,
 }) => {
-  const { t } = useTranslation();
-  if (channels.length === 0) return 'No channels';
+  const { t } = useTranslation()
+  if (channels.length === 0) return 'No channels'
   const handleChannelChange = (e) => {
-    const id = Number(e.target.dataset.id);
-    if (!id) return;
-    onChannelChange(id);
-  };
+    const id = Number(e.target.dataset.id)
+    if (!id) return
+    onChannelChange(id)
+  }
   const handleDeleteChannel = (id) => () => {
-    onChannelDelete(id);
-  };
+    onChannelDelete(id)
+  }
   const handleRenameChannel = (id) => () => {
-    onChannelRename(id);
-  };
+    onChannelRename(id)
+  }
   return (
     <div className="chats-block d-flex flex-column h-100 w-100">
       <div
@@ -72,8 +72,8 @@ const Channels = ({
         </Nav>
       </div>
     </div>
-  );
-};
+  )
+}
 Channels.defaultProps = {
   activeChannel: null,
   channels: [],
@@ -81,6 +81,6 @@ Channels.defaultProps = {
   onChannelDelete: () => {},
   onChannelRename: () => {},
   onChannelAdd: () => {},
-};
+}
 
-export default Channels;
+export default Channels

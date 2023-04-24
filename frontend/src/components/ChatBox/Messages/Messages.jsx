@@ -1,23 +1,21 @@
-import { useEffect, useRef } from 'react';
-import { Stack } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
+import { useEffect, useRef } from 'react'
+import { Stack } from 'react-bootstrap'
+import { useTranslation } from 'react-i18next'
 
-const headerHeight = 80;
+const headerHeight = 80
 
-const Messages = ({
-  title, description, children, form,
-}) => {
-  const { t } = useTranslation();
-  const messageBoxRef = useRef(null);
+const Messages = ({ title, description, children, form }) => {
+  const { t } = useTranslation()
+  const messageBoxRef = useRef(null)
   useEffect(() => {
     if (messageBoxRef.current) {
-      messageBoxRef.current.scrollTop = messageBoxRef.current.scrollHeight;
+      messageBoxRef.current.scrollTop = messageBoxRef.current.scrollHeight
     }
-  }, [children]);
+  }, [children])
   const renderChildren = (data) => {
-    if (!data || data?.length === 0) return <div>{t('chatPage.messages.body.placeholder')}</div>;
-    return data;
-  };
+    if (!data || data?.length === 0) return <div>{t('chatPage.messages.body.placeholder')}</div>
+    return data
+  }
   return (
     <div className="h-100 w-100">
       <div
@@ -45,12 +43,12 @@ const Messages = ({
         {form}
       </div>
     </div>
-  );
-};
+  )
+}
 Messages.defaultProps = {
   title: 'Message Header',
   description: 'Some description here',
   form: null,
-};
+}
 
-export default Messages;
+export default Messages
