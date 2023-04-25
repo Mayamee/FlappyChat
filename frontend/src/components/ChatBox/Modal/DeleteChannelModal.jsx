@@ -13,7 +13,6 @@ const DeleteChannelModal = ({ show, onAction: doAction, onHide: closeHandler }) 
         <Modal.Title>{t('chatPage.modals.removeModal.header')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p className="lead">{t('chatPage.modals.removeModal.body')}</p>
         <div className="text-end">
           <Button onClick={handleClick} variant="danger" className="me-2">
             {t('chatPage.modals.removeModal.buttons.submit')}
