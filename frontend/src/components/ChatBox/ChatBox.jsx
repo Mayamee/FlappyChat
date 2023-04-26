@@ -62,10 +62,10 @@ const ChatBox = () => {
   useEffect(() => {
     if (!socket) return
     socket.on('connect', () => {
-      console.log('connected')
+      // console.log('connected')
     })
     socket.on('disconnect', () => {
-      console.log('disconnected')
+      // console.log('disconnected')
     })
     socket.on('newMessage', (message) => {
       dispatch(addMessage(message))

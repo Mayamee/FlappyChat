@@ -1,0 +1,21 @@
+version: "3"
+services:
+  app:
+    build: .
+    image: mew13/flappy-chat
+    ports:
+      - "3000:8080"
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_SOCKET_URL=http://localhost:3000
+      - WDS_SOCKET_PORT=3000
+      - BROWSER=none
+    volumes:
+      - ./frontend/src:/app/frontend/src
+      - ./frontend/public:/app/frontend/public
+      - ./frontend/.env.development:/app/frontend/.env.development
+      - ./frontend/.eslintrc.yml:/app/frontend/.eslintrc.yml
+      - ./frontend/.eslintignore:/app/frontend/.eslintignore
+      - ./frontend/.prettierrc:/app/frontend/.prettierrc
+      - ./frontend/.prettierignore:/app/frontend/.prettierignore
+      - ./frontend/craco.config.js:/app/frontend/craco.config.js
