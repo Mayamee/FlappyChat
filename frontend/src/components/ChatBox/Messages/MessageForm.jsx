@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { Button, InputGroup, Form } from 'react-bootstrap'
 import { SendPlus } from 'react-bootstrap-icons'
 import { useTranslation } from 'react-i18next'
+import { MESSAGE_LIMIT } from '@/vars'
 
 const MessageForm = ({ onSubmit: submitHandler }) => {
   const { t } = useTranslation()
@@ -36,6 +37,12 @@ const MessageForm = ({ onSubmit: submitHandler }) => {
       document.removeEventListener('keydown', enterPressHandler)
     }
   }, [formik])
+
+  const handleChangeMessage = (e) => {
+    if (e.target.value.length > MESSAGE_LIMIT) return
+    formik.handleChange(e)
+  }
+
   return (
     <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
       <InputGroup>
@@ -45,7 +52,7 @@ const MessageForm = ({ onSubmit: submitHandler }) => {
           aria-describedby="submit-message"
           value={formik.values.message}
           name="message"
-          onChange={formik.handleChange}
+          onChange={handleChangeMessage}
         />
         <Button type="submit" className="btn-group-vertical" variant="primary" id="submit-message">
           <SendPlus className="p-0" />

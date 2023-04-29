@@ -1,7 +1,10 @@
 const { NODE_ENV } = process.env
 const { _ENV_ } = window
-const API_PATH = '/api/v1'
 
+// STATIC VARS
+const API_PATH = '/api/v1'
+export const MESSAGE_LIMIT = 1024
+// STATIC VARS
 let PUBLIC_URL = ''
 let accessToken = ''
 
