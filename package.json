@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "cross-env NODE_ENV=production node scripts/get_runtime_vars.js",
     "start": "npm run launch",
-		"launch": "start-server -s ./frontend/build",
+    "launch": "start-server -s ./frontend/build",
     "dev": "npm-run-all --parallel launch dev:frontend",
     "dev:frontend": "npm run start --prefix frontend",
     "build": "npm run build --prefix frontend",
