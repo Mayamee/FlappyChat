@@ -18,7 +18,7 @@ const Login = () => {
             <Card.Body className="py-5 my-0 my-lg-5">
               <Row className="align-items-center px-3 px-sm-5">
                 <Col xs={12} lg={6} className="d-flex align-items-center justify-content-center">
-                  <Image roundedCircle src={LoginImg} />
+                  <Image roundedCircle src={LoginImg} className="overflow-hidden" />
                 </Col>
                 <Col xs={12} lg={6} className="my-lg-0 my-3">
                   <LoginForm />
