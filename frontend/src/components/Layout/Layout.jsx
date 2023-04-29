@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import selectAuth from '@/redux/selectors/selectAuth'
 import { logout } from '@/redux/slices/authSlice'
+import BgLayer from '@/assets/icons/bg-pattern.svg'
 
 const topBarHeight = 60
 
@@ -19,6 +20,9 @@ const Layout = ({ children }) => {
   }
   return (
     <div className="d-flex flex-column vh-100">
+      <div id="bg-pattern">
+        <img src={BgLayer} alt="" />
+      </div>
       <header
         style={{
           height: topBarHeight,
