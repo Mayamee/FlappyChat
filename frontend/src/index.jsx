@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from '@/components/App'
 import store from '@/redux/store'
 import resources from '@/i18n'
-import { rollbarConfig } from '@/vars/rollbar'
+import { ROLLBAR_CONFIG } from '@/vars'
 import './index.scss'
 import 'react-toastify/dist/ReactToastify.min.css'
 
@@ -22,7 +22,7 @@ const init = async () => {
     <I18nextProvider i18n={i18n}>
       <ReduxProvider store={store}>
         <BrowserRouter>
-          <RollBarProvider config={rollbarConfig}>
+          <RollBarProvider config={ROLLBAR_CONFIG}>
             <ErrorBoundary>
               <App />
             </ErrorBoundary>

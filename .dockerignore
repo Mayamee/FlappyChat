@@ -1,0 +1,10 @@
+**/node_modules
+**/build
+**/.idea
+**/.prettierrc
+**/.vscode
+**/.gitignore
+**/README.md
+**/.prettierrc.json
+**/.prettieriignore
+

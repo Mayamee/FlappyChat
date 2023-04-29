@@ -2,12 +2,12 @@
 /* eslint-disable functional/no-this-expression */
 /* eslint-disable functional/no-class */
 import axios from 'axios'
-import { API_URL } from '@/vars/api'
+import { API_CONFIG } from '@/vars'
 
 class ChatService {
   constructor() {
     this.service = axios.create({
-      baseURL: API_URL,
+      baseURL: API_CONFIG.API_PATH,
       headers: {
         'Content-Type': 'application/json',
       },

@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  flappy-chat:
+    build:
+      dockerfile: Dockerfile.production
+    environment:
+      - PUBLIC_URL=http://localhost:8080
+      - ROLLBAR_ACCESS_TOKEN=none
+#      - PORT=8080 # this is the port that the server will run on inside the container
+    ports:
+      - "8080:8080"

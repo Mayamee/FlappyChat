@@ -4,7 +4,7 @@ env:
 
 extends:
   - airbnb
-  - plugin:react/recommended
+  # - plugin:react/recommended
   - plugin:functional/recommended
   - plugin:react-hooks/recommended
 
@@ -19,6 +19,7 @@ plugins:
   - functional
 
 rules:
+  functional/no-let: 0
   import/prefer-default-export: 0
   implicit-arrow-linebreak: 0
   operator-linebreak: 0
@@ -47,7 +48,7 @@ rules:
   functional/functional-parameters: 0
   functional/no-try-statement: 0
   functional/no-throw-statement: 0
-  no-underscore-dangle: [2, { 'allow': ['__filename', '__dirname'] }]
+  no-underscore-dangle: [2, { 'allow': ['__filename', '__dirname', '_ENV_'] }]
   react/function-component-definition: [2, { 'namedComponents': 'arrow-function' }]
   testing-library/no-debug: 0
   react/jsx-filename-extension: [1, { 'extensions': ['.js', '.jsx'] }]

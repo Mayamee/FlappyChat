@@ -4,12 +4,11 @@ services:
     build: .
     image: mew13/flappy-chat
     ports:
-      - "3000:8080"
+      - "5050:8080"
     environment:
-      - NODE_ENV=development
-      - REACT_APP_SOCKET_URL=http://localhost:3000
-      - WDS_SOCKET_PORT=3000
-      - BROWSER=none
+      - REACT_APP_PUBLIC_URL=http://localhost:5050
+      - REACT_APP_ROLLBAR_ACCESS_TOKEN=none
+      - WDS_SOCKET_PORT=5050
     volumes:
       - ./frontend/src:/app/frontend/src
       - ./frontend/public:/app/frontend/public

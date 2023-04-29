@@ -1,0 +1,58 @@
+# Install dependencies
+FROM node:18-alpine as deps
+
+ENV NODE_ENV=production
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+COPY ./frontend/package.json ./frontend/package-lock.json ./frontend/
+
+RUN npm ci
+
+# Build frontend
+FROM node:18-alpine as builder
+
+ENV NODE_ENV=production
+ENV CI=true
+
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/frontend/node_modules ./frontend/node_modules
+
+COPY package.json package-lock.json ./
+COPY ./frontend/package.json ./frontend/package-lock.json ./frontend/
+
+# dockerignore will prevent unnecessary copying
+COPY ./frontend ./frontend
+
+RUN npm run build
+
+# Run app
+FROM node:18-alpine as runner
+
+EXPOSE 8080
+
+WORKDIR /app
+
+RUN addgroup --system --gid 1001 nodejs && \
+		adduser --system --uid 1001 runner
+
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder --chown=runner:nodejs /app/frontend/build ./frontend/build
+# Copy runtime files
+COPY --chown=runner:nodejs ./scripts ./scripts
+
+# Only copy the package.json file to launch the app in production
+COPY --chown=runner:nodejs package.json ./
+
+USER runner
+
+ENV NODE_ENV=production
+ENV PORT=8080
+ENV PUBLIC_URL=http://localhost:8080
+ENV ROLLBAR_ENVIROMENT=production
+ENV ROLLBAR_ACCESS_TOKEN=''
+
+CMD ["npm", "start"]
