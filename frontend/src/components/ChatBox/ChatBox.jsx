@@ -259,7 +259,7 @@ const ChatBox = () => {
 
   if (isFetching) {
     return (
-      <div className="d-flex align-items-center justify-content-center h-100 w-100 bg-white shadow">
+      <div className="d-flex align-items-center justify-content-center h-100 w-100 bg-white shadow-lg">
         <Spinner as="span" animation="border" size="xl" role="status" aria-hidden="true" />
       </div>
     )
@@ -284,8 +284,8 @@ const ChatBox = () => {
 
   return (
     <>
-      <Row className="h-100">
-        <Col xs={4} sm={3} lg={2} className="h-100 bg-light p-0 border-end shadow">
+      <Row className="h-100 shadow-lg">
+        <Col xs={4} sm={3} lg={2} className="h-100 bg-light p-0 border-end">
           <Channels
             channels={channels}
             activeChannel={currentChannel}
