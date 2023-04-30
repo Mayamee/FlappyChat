@@ -67,7 +67,7 @@ export default {
         },
         errors: {
           emptyLength: 'Empty channel name is not allowed',
-          minLength: 'Channel name must be at least 3 characters long',
+          minLength: 'Channel name must be at least 20 characters long',
           alreadyExist: 'Channel with this name already exists',
         },
       },
