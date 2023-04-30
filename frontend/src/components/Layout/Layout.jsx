@@ -27,6 +27,7 @@ const Layout = ({ children }) => {
         <img src={BgLayer} alt="" />
       </div>
       <header
+        className="mb-3"
         style={{
           height: topBarHeight,
         }}

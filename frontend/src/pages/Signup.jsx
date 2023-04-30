@@ -7,7 +7,7 @@ import SkeletonImage from '@/components/common/SkeletonImage'
 const Signup = () => (
   <Container fluid className="flex-fill">
     <Row className="h-100 d-flex justify-content-center align-items-center">
-      <Col xxl={6} md={8} xs={12}>
+      <Col xxl={6} sm={10} md={8} xs={12}>
         <Card className="shadow-sm">
           <Card.Body className="py-5 py-md-3 my-0 my-lg-5">
             <Row className="align-items-center px-3 px-sm-5">
