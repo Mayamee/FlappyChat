@@ -4,6 +4,9 @@ lint-frontend:
 install:
 	npm install
 
+start:
+	make start-backend & make start-frontend
+
 dev:
 	npm run dev
 
@@ -38,9 +41,6 @@ docker-push-prod: docker-login
 	docker push mew1307/flappy-chat:autobuild
 
 docker-all-prod: docker-build-prod docker-push-prod
-
-start:
-	make start-backend & make start-frontend
 
 .PHONY: install start-frontend start-backend deploy start dev
 .PHONY: docker-dev docker-prod docker-dev-down docker-prod-down docker-build-prod docker-login docker-push-prod docker-all-prod
