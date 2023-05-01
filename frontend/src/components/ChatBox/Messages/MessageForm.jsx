@@ -22,7 +22,7 @@ const MessageForm = ({ onSubmit: submitHandler }) => {
       return errors
     },
     onSubmit: ({ message }, actions) => {
-      submitHandler(message)
+      submitHandler(message.trim())
       actions.resetForm()
     },
   })
@@ -39,7 +39,7 @@ const MessageForm = ({ onSubmit: submitHandler }) => {
   }, [formik])
 
   const handleChangeMessage = (e) => {
-    if (e.target.value.length > MESSAGE_LIMIT) return
+    if (e.target.value.trim().length > MESSAGE_LIMIT) return
     formik.handleChange(e)
   }
 

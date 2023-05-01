@@ -242,8 +242,8 @@ const ChatBox = () => {
     }
   }
   const handleSendMessage = (text) => {
-    const filteredText = profanityFilter(text)
     if (!text) return
+    const filteredText = profanityFilter(text)
     const payload = {
       body: filteredText,
       channelId: currentChannel,
