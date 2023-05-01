@@ -58,7 +58,7 @@ const SignupForm = () => {
       })}
     >
       {({ values, errors, touched, handleBlur, handleChange, isSubmitting }) => (
-        <FormikForm>
+        <FormikForm noValidate>
           <h1 className="text-center mb-3">{t('signupPage.form.title')}</h1>
           <Form.Group className="mb-3">
             <FloatingLabel controlId="login" label={t('signupPage.form.loginInput.placeholder')}>

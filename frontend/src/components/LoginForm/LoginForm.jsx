@@ -45,7 +45,7 @@ const LoginForm = () => {
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmitHandler} validationSchema={loginSchema}>
       {({ values, handleBlur, handleChange, isSubmitting }) => (
-        <FormikForm>
+        <FormikForm noValidate>
           <h1 className="text-center mb-3">{t('loginPage.form.title')}</h1>
           <Form.Group className="mb-3">
             <FloatingLabel controlId="login" label={t('loginPage.form.loginInput.placeholder')}>
