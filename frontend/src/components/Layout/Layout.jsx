@@ -65,7 +65,7 @@ const Layout = ({ children }) => {
       <main
         className="flex-fill d-flex"
         style={{
-          height: `calc(100% - ${topBarHeight}px)`,
+          height: `calc(100% - ${topBarHeight}px - 1rem)`,
         }}
       >
         {children}
