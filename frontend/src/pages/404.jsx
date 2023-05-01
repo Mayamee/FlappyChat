@@ -12,7 +12,7 @@ const Page404 = () => {
     <Container fluid>
       <Row className="h-100 justify-content-center align-items-center">
         <Col xs={12} sm={8} md={6} lg={4}>
-          <div className="text-muted text-center">
+          <div className="text-muted text-center bg-white">
             <Image src={notFoundIcon} className="w-100" />
             <h1 className="text-center h4 mt-4">{t('notFoundPage.title')}</h1>
             <p>
