@@ -1,4 +1,3 @@
-import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { useRef, useState } from 'react'
@@ -43,32 +42,39 @@ const LoginForm = () => {
     }
   }
   return (
-    <Formik initialValues={initialValues} onSubmit={onSubmitHandler} validationSchema={loginSchema}>
-      {({ values, handleBlur, handleChange, isSubmitting }) => (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmitHandler}
+      validationSchema={loginSchema({
+        login: t('loginPage.form.loginInput.errorText', { returnObjects: true }),
+        password: t('loginPage.form.passwordInput.errorText', { returnObjects: true }),
+      })}
+    >
+      {({ values, errors, handleBlur, handleChange, isSubmitting }) => (
         <FormikForm noValidate>
           <h1 className="text-center mb-3">{t('loginPage.form.title')}</h1>
-          <Form.Group className="mb-3">
+          <Form.Group className="mb-3 position-relative">
             <FloatingLabel controlId="login" label={t('loginPage.form.loginInput.placeholder')}>
               <Form.Control
                 ref={loginRef}
                 value={values.login}
                 onBlur={handleBlur}
                 onChange={handleChange}
-                isInvalid={authFailed}
+                isInvalid={authFailed || errors.login}
                 name="login"
                 autoComplete="off"
                 type="text"
                 placeholder="0"
                 required
               />
+              {errors.login && (
+                <Form.Control.Feedback type="invalid" tooltip>
+                  {errors.login}
+                </Form.Control.Feedback>
+              )}
             </FloatingLabel>
           </Form.Group>
-          <Form.Group
-            className={clsx('position-relative', {
-              'mb-3': !authFailed,
-              'mb-5': authFailed,
-            })}
-          >
+          <Form.Group className="position-relative mb-3">
             <FloatingLabel
               controlId="password"
               label={t('loginPage.form.passwordInput.placeholder')}
@@ -78,14 +84,16 @@ const LoginForm = () => {
                 onBlur={handleBlur}
                 onChange={handleChange}
                 name="password"
-                isInvalid={authFailed}
+                isInvalid={authFailed || errors.password}
                 autoComplete="off"
                 type="password"
                 placeholder="0"
                 required
               />
               <Form.Control.Feedback type="invalid" tooltip>
-                {t('loginPage.form.passwordInput.errorText')}
+                {errors.password
+                  ? errors.password
+                  : t('loginPage.form.passwordInput.errorText.authFailed')}
               </Form.Control.Feedback>
             </FloatingLabel>
           </Form.Group>

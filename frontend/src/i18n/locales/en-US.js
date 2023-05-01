@@ -77,10 +77,20 @@ export default {
         title: 'Login',
         loginInput: {
           placeholder: 'Your username',
+          errorText: {
+            min: 'Username must be at least 3 characters long',
+            max: 'Username must be less than 20 characters long',
+            required: 'Field is required',
+          },
         },
         passwordInput: {
           placeholder: 'Your password',
-          errorText: 'Incorrect username or password',
+          errorText: {
+            min: 'Password must be at least 6 characters long',
+            max: 'Password must be less than 32 characters long',
+            required: 'Field is required',
+            authFailed: 'Incorrect username or password',
+          },
         },
         submitButton: 'Login',
       },
