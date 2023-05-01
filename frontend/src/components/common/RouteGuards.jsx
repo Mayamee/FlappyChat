@@ -5,14 +5,14 @@ import selectAuth from '@/redux/selectors/selectAuth'
 export const PrivateRoute = () => {
   const isLogin = useSelector(selectAuth)
   const location = useLocation()
-  return isLogin ? <Outlet /> : <Navigate to="/login" state={{ from: location }} />
+  return isLogin ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />
 }
 
 export const AuthRoute = () => {
   const isLogin = useSelector(selectAuth)
   const location = useLocation()
   return isLogin ? (
-    <Navigate to={location.state?.from || '/'} state={{ from: location }} />
+    <Navigate to={location.state?.from || '/'} state={{ from: location }} replace />
   ) : (
     <Outlet />
   )
