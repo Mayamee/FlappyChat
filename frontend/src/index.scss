@@ -13,6 +13,9 @@ body {
 .overflow-yh {
   overflow-y: hidden !important;
 }
+#chat-wrapper {
+  min-width: 375px;
+}
 #bg-pattern {
   position: fixed;
   top: 0;

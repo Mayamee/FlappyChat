@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
     i18n.changeLanguage(lng)
   }
   return (
-    <div className="d-flex flex-column vh-100">
+    <div id="chat-wrapper" className="d-flex flex-column vh-100">
       <div id="bg-pattern">
         <img src={BgLayer} alt="" />
       </div>

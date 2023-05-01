@@ -285,7 +285,7 @@ const ChatBox = () => {
 
   return (
     <>
-      <Row className="h-100 shadow-lg">
+      <Row className="h-100 shadow-lg mx-auto">
         <Col xs={4} sm={3} lg={2} className="h-100 bg-light p-0 border-end">
           <Channels
             channels={channels}
