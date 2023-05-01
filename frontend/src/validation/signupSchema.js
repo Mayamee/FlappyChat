@@ -10,7 +10,7 @@ export default (text = {}) =>
       .required(text.login?.required || 'Обязательное поле'),
     password: yup
       .string()
-      .min(6, text.password?.min || 'Длина пароля должна быть минимум 6 знаков')
+      .min(5, text.password?.min || 'Длина пароля должна быть минимум 5 знаков')
       .max(32, text.password?.max || 'Длина пароля должна быть максимум 32 знака')
       .required(text.password?.required || 'Обязательное поле'),
     confirmPassword: yup

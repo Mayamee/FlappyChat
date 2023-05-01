@@ -86,7 +86,7 @@ export default {
         passwordInput: {
           placeholder: 'Your password',
           errorText: {
-            min: 'Password must be at least 6 characters long',
+            min: 'Password must be at least 5 characters long',
             max: 'Password must be less than 32 characters long',
             required: 'Field is required',
             authFailed: 'Incorrect username or password',
@@ -114,7 +114,7 @@ export default {
         passwordInput: {
           placeholder: 'Your password',
           errorText: {
-            min: 'Password must be at least 6 characters long',
+            min: 'Password must be at least 5 characters long',
             max: 'Password must be less than 32 characters long',
             required: 'Field is required',
           },
