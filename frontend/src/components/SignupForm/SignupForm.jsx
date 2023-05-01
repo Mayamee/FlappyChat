@@ -53,12 +53,6 @@ const SignupForm = () => {
       }),
     }),
   })
-  const handleBlur = (e) => {
-    const { value } = e.target
-    e.target.value = value.trim().replace(/\s+/g, ' ')
-    f.handleChange(e)
-    f.handleBlur(e)
-  }
   const handleChange = (e) => {
     const { value } = e.target
     e.target.value = value.replace(/\s/g, '')
@@ -73,8 +67,7 @@ const SignupForm = () => {
           <Form.Control
             ref={loginRef}
             value={f.values.login}
-            onBlur={handleBlur}
-            onChange={f.handleChange}
+            onChange={handleChange}
             isInvalid={f.errors.login}
             name="login"
             autoComplete="off"

@@ -188,16 +188,15 @@ const ChatBox = () => {
     })
   }
   const handleValidateChannel = ({ name }) => {
-    const trimmedName = name.trim().replace(/\s+/g, ' ')
     const errors = {}
-    if (trimmedName.length === 0) {
+    if (name.length === 0) {
       errors.name = t('chatPage.modals.errors.emptyLength')
     }
-    if (trimmedName.length > 20) {
+    if (name.length > 20) {
       errors.name = t('chatPage.modals.errors.minLength')
     }
     channels.forEach((channel) => {
-      if (trimmedName === channel.name) {
+      if (name === channel.name) {
         errors.name = t('chatPage.modals.errors.alreadyExist')
       }
     })

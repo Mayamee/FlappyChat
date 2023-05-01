@@ -33,11 +33,10 @@ const RenameChannelModal = ({
   }, [])
   const inputId = useId()
 
-  const handleBlur = (e) => {
+  const handleChange = (e) => {
     const { value } = e.target
-    e.target.value = value.trim().replace(/\s+/g, ' ')
+    e.target.value = value.replace(/\s/g, '')
     f.handleChange(e)
-    f.handleBlur(e)
   }
 
   return (
@@ -55,8 +54,7 @@ const RenameChannelModal = ({
               ref={inputRef}
               id={inputId}
               value={f.values.name}
-              onChange={f.handleChange}
-              onBlur={handleBlur}
+              onChange={handleChange}
               isInvalid={f.errors.name}
               name="name"
             />
