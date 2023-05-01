@@ -98,14 +98,15 @@ export default {
             alreadyExist: 'User with this name already exists',
             min: 'Username must be at least 3 characters long',
             max: 'Username must be less than 20 characters long',
-            required: 'Required field',
+            required: 'Field is required',
           },
         },
         passwordInput: {
           placeholder: 'Your password',
           errorText: {
-            min: 'Password must be at least 5 characters long',
-            required: 'Required field',
+            min: 'Password must be at least 6 characters long',
+            max: 'Password must be less than 32 characters long',
+            required: 'Field is required',
           },
         },
         confirmPasswordInput: {

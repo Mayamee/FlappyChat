@@ -1,7 +1,7 @@
 /* eslint-disable implicit-arrow-linebreak */
 import * as yup from 'yup'
 
-export default (text) =>
+export default (text = {}) =>
   yup.object().shape({
     login: yup
       .string()
@@ -11,6 +11,7 @@ export default (text) =>
     password: yup
       .string()
       .min(6, text.password?.min || 'Длина пароля должна быть минимум 6 знаков')
+      .max(32, text.password?.max || 'Длина пароля должна быть максимум 32 знака')
       .required(text.password?.required || 'Обязательное поле'),
     confirmPassword: yup
       .string()
