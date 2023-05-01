@@ -16,7 +16,7 @@ const AddChannelModal = ({
       name: '',
     },
     onSubmit: ({ name }) => {
-      doAction(name)
+      doAction(name.trimEnd().replace(/\s+/g, ' '))
       closeHandler()
     },
     validate: validateHandler,
@@ -33,7 +33,7 @@ const AddChannelModal = ({
 
   const handleChange = (e) => {
     const { value } = e.target
-    e.target.value = value.replace(/\s/g, '')
+    e.target.value = value.trimStart()
     f.handleChange(e)
   }
 
