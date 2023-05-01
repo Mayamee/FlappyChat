@@ -1,10 +1,7 @@
+import { useFormik } from 'formik'
 import { useDispatch } from 'react-redux'
 import { useRef } from 'react'
-import { Form as FormikForm, Formik } from 'formik'
-import FloatingLabel from 'react-bootstrap/FloatingLabel'
-import Spinner from 'react-bootstrap/Spinner'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
+import { FloatingLabel, Spinner, Button, Form } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
 import signupSchema from '@/validation/signupSchema'
 import AuthService from '@/services/AuthService'
@@ -41,95 +38,87 @@ const SignupForm = () => {
       actions.setSubmitting(false)
     }
   }
+  const f = useFormik({
+    initialValues,
+    onSubmit: onSubmitHandler,
+    validationSchema: signupSchema({
+      login: t('signupPage.form.loginInput.errorText', {
+        returnObjects: true,
+      }),
+      password: t('signupPage.form.passwordInput.errorText', {
+        returnObjects: true,
+      }),
+      confirmPassword: t('signupPage.form.confirmPasswordInput.errorText', {
+        returnObjects: true,
+      }),
+    }),
+  })
+
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={onSubmitHandler}
-      validationSchema={signupSchema({
-        login: t('signupPage.form.loginInput.errorText', {
-          returnObjects: true,
-        }),
-        password: t('signupPage.form.passwordInput.errorText', {
-          returnObjects: true,
-        }),
-        confirmPassword: t('signupPage.form.confirmPasswordInput.errorText', {
-          returnObjects: true,
-        }),
-      })}
-    >
-      {({ values, errors, touched, handleBlur, handleChange, isSubmitting }) => (
-        <FormikForm noValidate>
-          <h1 className="text-center mb-3">{t('signupPage.form.title')}</h1>
-          <Form.Group className="mb-3">
-            <FloatingLabel controlId="login" label={t('signupPage.form.loginInput.placeholder')}>
-              <Form.Control
-                ref={loginRef}
-                value={values.login}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                isInvalid={touched.login && errors.login}
-                name="login"
-                autoComplete="off"
-                type="text"
-                placeholder="0"
-                required
-              />
-              <Form.Control.Feedback type="invalid" tooltip>
-                {errors.login}
-              </Form.Control.Feedback>
-            </FloatingLabel>
-          </Form.Group>
-          <Form.Group className="mb-3 position-relative">
-            <FloatingLabel
-              controlId="password"
-              label={t('signupPage.form.passwordInput.placeholder')}
-            >
-              <Form.Control
-                value={values.password}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                name="password"
-                isInvalid={touched.password && errors.password}
-                autoComplete="off"
-                type="password"
-                placeholder="0"
-                required
-              />
-              <Form.Control.Feedback type="invalid" tooltip>
-                {errors.password}
-              </Form.Control.Feedback>
-            </FloatingLabel>
-          </Form.Group>
-          <Form.Group className="mb-3 position-relative">
-            <FloatingLabel
-              controlId="confirmPassword"
-              label={t('signupPage.form.confirmPasswordInput.placeholder')}
-            >
-              <Form.Control
-                value={values.confirmPassword}
-                onBlur={handleBlur}
-                onChange={handleChange}
-                name="confirmPassword"
-                isInvalid={touched.confirmPassword && errors.confirmPassword}
-                autoComplete="off"
-                type="password"
-                placeholder="0"
-                required
-              />
-              <Form.Control.Feedback type="invalid" tooltip>
-                {errors.confirmPassword}
-              </Form.Control.Feedback>
-            </FloatingLabel>
-          </Form.Group>
-          <Button className="w-100" type="submit" variant="outline-primary" disabled={isSubmitting}>
-            {isSubmitting && (
-              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-            )}
-            {!isSubmitting && t('signupPage.form.submitButton')}
-          </Button>
-        </FormikForm>
-      )}
-    </Formik>
+    <Form onSubmit={f.handleSubmit} noValidate>
+      <h1 className="text-center mb-3">{t('signupPage.form.title')}</h1>
+      <Form.Group className="mb-3">
+        <FloatingLabel controlId="login" label={t('signupPage.form.loginInput.placeholder')}>
+          <Form.Control
+            ref={loginRef}
+            value={f.values.login}
+            onChange={f.handleChange}
+            isInvalid={f.errors.login}
+            name="login"
+            autoComplete="off"
+            type="text"
+            placeholder="0"
+            required
+          />
+          <Form.Control.Feedback type="invalid" tooltip>
+            {f.errors.login}
+          </Form.Control.Feedback>
+        </FloatingLabel>
+      </Form.Group>
+      <Form.Group className="mb-3 position-relative">
+        <FloatingLabel controlId="password" label={t('signupPage.form.passwordInput.placeholder')}>
+          <Form.Control
+            value={f.values.password}
+            onChange={f.handleChange}
+            name="password"
+            isInvalid={f.errors.password}
+            autoComplete="off"
+            type="password"
+            placeholder="0"
+            required
+          />
+          <Form.Control.Feedback type="invalid" tooltip>
+            {f.errors.password}
+          </Form.Control.Feedback>
+        </FloatingLabel>
+      </Form.Group>
+      <Form.Group className="mb-3 position-relative">
+        <FloatingLabel
+          controlId="confirmPassword"
+          label={t('signupPage.form.confirmPasswordInput.placeholder')}
+        >
+          <Form.Control
+            value={f.values.confirmPassword}
+            onChange={f.handleChange}
+            name="confirmPassword"
+            isInvalid={f.errors.confirmPassword}
+            autoComplete="off"
+            type="password"
+            placeholder="0"
+            required
+          />
+          <Form.Control.Feedback type="invalid" tooltip>
+            {f.errors.confirmPassword}
+          </Form.Control.Feedback>
+        </FloatingLabel>
+      </Form.Group>
+      <Button className="w-100" type="submit" variant="outline-primary" disabled={f.isSubmitting}>
+        {f.isSubmitting && (
+          <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+        )}
+        {!f.isSubmitting && t('signupPage.form.submitButton')}
+      </Button>
+    </Form>
   )
 }
 
