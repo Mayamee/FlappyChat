@@ -1,3 +1,5 @@
+DOCKER_TAG=autobuild
+
 lint-frontend:
 	make -C frontend lint
 
@@ -32,13 +34,13 @@ docker-prod-down:
 	docker-compose -f docker-compose.production.yml down
 
 docker-build-prod:
-	docker build -f Dockerfile.production -t mew1307/flappy-chat:autobuild .
+	docker build -f Dockerfile.production -t mew1307/flappy-chat:$(DOCKER_TAG) .
 
 docker-login:
 	npx posix-cat .docker_passwd | docker login -u mew1307 --password-stdin
 
 docker-push-prod: docker-login
-	docker push mew1307/flappy-chat:autobuild
+	docker push mew1307/flappy-chat:$(DOCKER_TAG)
 
 docker-all-prod: docker-build-prod docker-push-prod
 
