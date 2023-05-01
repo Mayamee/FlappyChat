@@ -32,6 +32,14 @@ const RenameChannelModal = ({
     inputRef.current.select()
   }, [])
   const inputId = useId()
+
+  const handleBlur = (e) => {
+    const { value } = e.target
+    e.target.value = value.trim().replace(/\s+/g, ' ')
+    f.handleChange(e)
+    f.handleBlur(e)
+  }
+
   return (
     <Modal show={show} onHide={hideHandler} centered>
       <Modal.Header closeButton>
@@ -48,6 +56,7 @@ const RenameChannelModal = ({
               id={inputId}
               value={f.values.name}
               onChange={f.handleChange}
+              onBlur={handleBlur}
               isInvalid={f.errors.name}
               name="name"
             />

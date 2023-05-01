@@ -53,6 +53,17 @@ const SignupForm = () => {
       }),
     }),
   })
+  const handleBlur = (e) => {
+    const { value } = e.target
+    e.target.value = value.trim().replace(/\s+/g, ' ')
+    f.handleChange(e)
+    f.handleBlur(e)
+  }
+  const handleChange = (e) => {
+    const { value } = e.target
+    e.target.value = value.replace(/\s/g, '')
+    f.handleChange(e)
+  }
 
   return (
     <Form onSubmit={f.handleSubmit} noValidate>
@@ -62,6 +73,7 @@ const SignupForm = () => {
           <Form.Control
             ref={loginRef}
             value={f.values.login}
+            onBlur={handleBlur}
             onChange={f.handleChange}
             isInvalid={f.errors.login}
             name="login"
@@ -79,7 +91,7 @@ const SignupForm = () => {
         <FloatingLabel controlId="password" label={t('signupPage.form.passwordInput.placeholder')}>
           <Form.Control
             value={f.values.password}
-            onChange={f.handleChange}
+            onChange={handleChange}
             name="password"
             isInvalid={f.errors.password}
             autoComplete="off"
@@ -99,7 +111,7 @@ const SignupForm = () => {
         >
           <Form.Control
             value={f.values.confirmPassword}
-            onChange={f.handleChange}
+            onChange={handleChange}
             name="confirmPassword"
             isInvalid={f.errors.confirmPassword}
             autoComplete="off"

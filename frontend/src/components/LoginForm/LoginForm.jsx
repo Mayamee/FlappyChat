@@ -46,6 +46,17 @@ const LoginForm = () => {
       password: t('loginPage.form.passwordInput.errorText', { returnObjects: true }),
     }),
   })
+  const handleBlur = (e) => {
+    const { value } = e.target
+    e.target.value = value.trim().replace(/\s+/g, ' ')
+    f.handleChange(e)
+    f.handleBlur(e)
+  }
+  const handleChange = (e) => {
+    const { value } = e.target
+    e.target.value = value.replace(/\s/g, '')
+    f.handleChange(e)
+  }
 
   return (
     <Form onSubmit={f.handleSubmit} noValidate>
@@ -55,7 +66,7 @@ const LoginForm = () => {
           <Form.Control
             ref={loginRef}
             value={f.values.login}
-            onBlur={f.handleBlur}
+            onBlur={handleBlur}
             onChange={f.handleChange}
             isInvalid={authFailed || f.errors.login}
             name="login"
@@ -76,7 +87,7 @@ const LoginForm = () => {
           <Form.Control
             value={f.values.password}
             onBlur={f.handleBlur}
-            onChange={f.handleChange}
+            onChange={handleChange}
             name="password"
             isInvalid={authFailed || f.errors.password}
             autoComplete="off"
