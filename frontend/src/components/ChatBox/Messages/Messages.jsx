@@ -1,11 +1,14 @@
 import { useEffect, useRef } from 'react'
 import { Stack } from 'react-bootstrap'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { selectUser } from '@/redux/selectors/selectAuth'
 
 const headerHeight = 80
 
 const Messages = ({ title, description, children, form }) => {
   const { t } = useTranslation()
+  const currentUser = useSelector(selectUser)
   const messageBoxRef = useRef(null)
   useEffect(() => {
     if (messageBoxRef.current) {
@@ -19,7 +22,7 @@ const Messages = ({ title, description, children, form }) => {
   return (
     <div className="h-100 w-100">
       <div
-        className="shadow px-3 d-flex align-items-center"
+        className="shadow px-3 d-flex align-items-center justify-content-between"
         style={{
           height: headerHeight,
         }}
@@ -30,6 +33,9 @@ const Messages = ({ title, description, children, form }) => {
           </div>
           <div>{description}</div>
         </div>
+        <div id="id" className="h6">
+          ({currentUser})
+        </div>
       </div>
       <div
         className="d-flex flex-column bg-white p-3"
@@ -37,7 +43,7 @@ const Messages = ({ title, description, children, form }) => {
           height: `calc(100% - ${headerHeight}px)`,
         }}
       >
-        <Stack ref={messageBoxRef} className="mb-3 overflow-auto" gap={3}>
+        <Stack ref={messageBoxRef} className="mb-3 overflow-auto px-3" gap={1}>
           {renderChildren(children)}
         </Stack>
         {form}

@@ -32,6 +32,7 @@ import {
 import { selectUser } from '@/redux/selectors/selectAuth'
 import { logout } from '@/redux/slices/authSlice'
 import profanityFilter from '@/utils/profanityFilter/profanityFilter'
+import Message from './Messages/Message/Message'
 
 const modalTypes = {
   nomodal: 'nomodal',
@@ -307,11 +308,12 @@ const ChatBox = () => {
             form={<MessageForm onSubmit={handleSendMessage} />}
           >
             {messagesByChannel.map((message) => (
-              <div key={message.id} className="text-break">
-                <strong>{message.username}</strong>
-                :&nbsp;
-                {message.body}
-              </div>
+              <Message
+                body={message.body}
+                username={message.username !== user ? message.username : null}
+                alignEnd={message.username === user}
+                key={message.id}
+              />
             ))}
           </Messages>
         </Col>
