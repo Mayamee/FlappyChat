@@ -27,7 +27,7 @@ const Channel = ({ id, name, active, removable, onDelete, onRename }) => {
         <Dropdown.Toggle variant={active ? 'secondary' : null} className="flex-grow-0" split>
           <span className="visually-hidden">Управление каналом</span>
         </Dropdown.Toggle>
-        <Dropdown.Menu>
+        <Dropdown.Menu className="position-fixed">
           <Dropdown.Item onClick={onDelete}>{t('chatPage.channels.dropMenu.remove')}</Dropdown.Item>
           <Dropdown.Item onClick={onRename}>{t('chatPage.channels.dropMenu.rename')}</Dropdown.Item>
         </Dropdown.Menu>
