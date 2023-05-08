@@ -1,10 +1,13 @@
 # Flappy chat
 
-🌐Available on https://cv-chat.wem.webtm.ru
+🌐Available on
+<a href="https://cv-chat.wem.webtm.ru" target="_blank">https://cv-chat.wem.webtm.ru</a>
 
-🔍My portfolio: https://portfolio-cv-eight.vercel.app
+🔍My portfolio:
+<a href="https://portfolio-cv-eight.vercel.app" target="_blank">https://portfolio-cv-eight.vercel.app</a>
 
-🏷This project: https://portfolio-cv-eight.vercel.app/project/flappy-chat
+🏷This project:
+<a href="https://portfolio-cv-eight.vercel.app/project/flappy-chat" target="_blank">https://portfolio-cv-eight.vercel.app/project/flappy-chat</a>
 
 ## Description
 
