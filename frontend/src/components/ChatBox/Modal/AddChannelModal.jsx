@@ -26,6 +26,7 @@ const AddChannelModal = ({
     closeHandler()
   }
   useEffect(() => {
+    if (show) f.setFieldValue('name', '', false)
     if (inputRef.current === null) return
     inputRef.current.focus()
   }, [show])
