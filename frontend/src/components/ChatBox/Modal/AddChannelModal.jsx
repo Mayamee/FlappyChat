@@ -29,6 +29,7 @@ const AddChannelModal = ({
     if (show) f.setFieldValue('name', '', false)
     if (inputRef.current === null) return
     inputRef.current.focus()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show])
   const inputId = useId()
 
