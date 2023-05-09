@@ -146,9 +146,6 @@ const ChatBox = () => {
   }, [retryCount])
   const handleCloseModal = () => {
     setModalOpen(false)
-    setTimeout(() => {
-      setModalType(modalTypes.nomodal)
-    }, 500)
   }
   const handleAddChannel = () => {
     setModalType(modalTypes.addChannel)
@@ -221,6 +218,7 @@ const ChatBox = () => {
         return (
           <RenameChannelModal
             name={name}
+            key={name}
             show={isModalOpen}
             onAction={handleModalRenameChannel}
             onHide={handleCloseModal}
