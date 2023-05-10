@@ -2,7 +2,7 @@ import { toast } from 'react-toastify'
 import { useTranslation } from 'react-i18next'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Button, Col, Row, Spinner } from 'react-bootstrap'
+import { Button, Spinner } from 'react-bootstrap'
 import {
   setActiveChannel,
   setChannels,
@@ -33,6 +33,10 @@ import { selectUser } from '@/redux/selectors/selectAuth'
 import { logout } from '@/redux/slices/authSlice'
 import profanityFilter from '@/utils/profanityFilter/profanityFilter'
 import Message from './Messages/Message/Message'
+import Layout from '@/components/ChatBox/Layout/Layout'
+import { closeMenu } from '@/redux/slices/menuSlice'
+import { useBreakPoint } from '@/hooks/useMediaQuery'
+import { BREAKPOINTS } from '@/vars'
 
 const modalTypes = {
   nomodal: 'nomodal',
@@ -50,6 +54,7 @@ const ChatBox = () => {
   const messagesByChannel = useSelector(selectMessagesByChannelId)
   const totalMessagesById = useSelector(selectTotalMessagesByChannelId)
   const user = useSelector(selectUser)
+  const isSmallScreen = useBreakPoint(BREAKPOINTS.sm)
 
   const [modalType, setModalType] = useState(modalTypes.nomodal)
   const [itemIdx, setItemIdx] = useState(null)
@@ -58,7 +63,6 @@ const ChatBox = () => {
   const [isFetching, setFetching] = useState(false)
   const [fetchingError, setFetchingError] = useState(null)
   const [retryCount, setRetryCount] = useState(0)
-
   const socket = useSocketContext()
   useEffect(() => {
     if (!socket) return
@@ -151,7 +155,10 @@ const ChatBox = () => {
     setModalType(modalTypes.addChannel)
     setModalOpen(true)
   }
-  const handleChannelChange = (id) => dispatch(setActiveChannel(id))
+  const handleChannelChange = (id, isShouldCloseMenu = true) => {
+    dispatch(setActiveChannel(id))
+    if (isSmallScreen && isShouldCloseMenu) dispatch(closeMenu())
+  }
   const handleChannelDelete = (id) => {
     setModalType(modalTypes.deleteChannel)
     setItemIdx(id)
@@ -167,6 +174,7 @@ const ChatBox = () => {
       if (data.status === 'ok') {
         dispatch(addChannel(data.data))
         dispatch(setActiveChannel(data.data.id))
+        if (isSmallScreen) dispatch(closeMenu())
         toast.success(t('chatPage.toasts.channelAdded', { name }))
       }
     })
@@ -174,6 +182,7 @@ const ChatBox = () => {
   const handleModalDeleteChannel = () => {
     socket.emit('removeChannel', { id: itemIdx }, (data) => {
       if (data.status === 'ok') {
+        if (isSmallScreen) dispatch(closeMenu())
         toast.success(t('chatPage.toasts.channelRemoved', { name: channelEntities[itemIdx].name }))
       }
     })
@@ -181,6 +190,8 @@ const ChatBox = () => {
   const handleModalRenameChannel = (name) => {
     socket.emit('renameChannel', { id: itemIdx, name }, (data) => {
       if (data.status === 'ok') {
+        dispatch(closeMenu())
+        if (isSmallScreen) dispatch(closeMenu())
         toast.success(t('chatPage.toasts.channelRenamed', { name: channelEntities[itemIdx].name }))
       }
     })
@@ -284,8 +295,9 @@ const ChatBox = () => {
 
   return (
     <>
-      <Row className="h-100 shadow-lg mx-auto">
-        <Col xs={4} sm={3} lg={2} className="h-100 bg-light p-0 border-end">
+      {/* Используй композицию и вынеси layout ситуацию в нее */}
+      <Layout
+        channels={
           <Channels
             channels={channels}
             activeChannel={currentChannel}
@@ -294,8 +306,8 @@ const ChatBox = () => {
             onChannelDelete={handleChannelDelete}
             onChannelRename={handleChannelRename}
           />
-        </Col>
-        <Col xs={8} sm={9} lg={10} className="h-100 bg-light p-0">
+        }
+        messages={
           <Messages
             title={t('chatPage.messages.header.channelName', {
               name: channelEntities[currentChannel]?.name,
@@ -314,8 +326,8 @@ const ChatBox = () => {
               />
             ))}
           </Messages>
-        </Col>
-      </Row>
+        }
+      />
       {renderModal()}
     </>
   )

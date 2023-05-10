@@ -4,6 +4,13 @@ const { _ENV_ } = window
 // STATIC VARS
 const API_PATH = '/api/v1'
 export const MESSAGE_LIMIT = 1024
+export const BREAKPOINTS = {
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200,
+  xxl: 1400,
+}
 // STATIC VARS
 let PUBLIC_URL = ''
 let accessToken = ''

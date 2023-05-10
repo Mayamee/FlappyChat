@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { PlusSquare } from 'react-bootstrap-icons'
 import { Nav } from 'react-bootstrap'
@@ -14,6 +15,20 @@ const Channels = ({
   onChannelAdd,
 }) => {
   const { t } = useTranslation()
+  const channelsListRef = useRef(null)
+  const channelsLength = useRef(channels.length)
+  useEffect(() => {
+    const prevChannelsLength = channelsLength.current
+    const currentChannelsLength = channels.length
+    if (!channelsListRef.current) return
+    if (prevChannelsLength < currentChannelsLength) {
+      channelsListRef.current.scrollTop = channelsListRef.current.scrollHeight
+    }
+    if (prevChannelsLength > currentChannelsLength) {
+      channelsListRef.current.scrollTop = 0
+    }
+    channelsLength.current = currentChannelsLength
+  }, [channels.length])
   if (channels.length === 0) return 'No channels'
   const handleChannelChange = (e) => {
     const id = Number(e.target.dataset.id)
@@ -26,6 +41,10 @@ const Channels = ({
   const handleRenameChannel = (id) => () => {
     onChannelRename(id)
   }
+  const handleClick = (id, isShouldCloseMenu) => () => {
+    onChannelChange(id, isShouldCloseMenu)
+  }
+
   return (
     <div className="chats-block d-flex flex-column h-100 w-100">
       <div
@@ -47,6 +66,7 @@ const Channels = ({
         </button>
       </div>
       <div
+        ref={channelsListRef}
         className="chats-body mt-2 flex-fill overflow-auto"
         style={{
           height: `calc(100% - ${headerHeight}px)`,
@@ -65,6 +85,7 @@ const Channels = ({
               active={activeChannel === channel.id}
               name={channel.name}
               removable={channel.removable}
+              onClick={handleClick(channel.id, false)}
               onDelete={handleDeleteChannel(channel.id)}
               onRename={handleRenameChannel(channel.id)}
             />

@@ -2,7 +2,7 @@ import { ButtonGroup, Dropdown, Nav } from 'react-bootstrap'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
 
-const Channel = ({ id, name, active, removable, onDelete, onRename }) => {
+const Channel = ({ id, name, active, removable, onClick, onDelete, onRename }) => {
   const { t } = useTranslation()
   const buttonClasses = clsx('w-100 rounded-0 text-start btn text-truncate', {
     'btn-secondary': active,
@@ -19,7 +19,7 @@ const Channel = ({ id, name, active, removable, onDelete, onRename }) => {
   }
   return (
     <Nav.Item as="li">
-      <Dropdown as={ButtonGroup} className="w-100">
+      <Dropdown onClick={onClick} as={ButtonGroup} className="w-100">
         <button data-id={id} type="button" className={buttonClasses}>
           <span className="me-1">#</span>
           {name}

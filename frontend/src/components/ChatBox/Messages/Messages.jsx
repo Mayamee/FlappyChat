@@ -27,8 +27,8 @@ const Messages = ({ title, description, children, form }) => {
           height: headerHeight,
         }}
       >
-        <div>
-          <div>
+        <div className="overflow-hidden">
+          <div className="text-truncate">
             <b>{title}</b>
           </div>
           <div>{description}</div>
