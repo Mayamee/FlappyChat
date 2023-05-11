@@ -57,7 +57,16 @@ const Layout = ({ children }) => {
           </Container>
         </Navbar>
       </header>
-      <main className="flex-fill d-flex h-100">{children}</main>
+      <main
+        className="flex-fill d-flex"
+        style={{
+          height: isSmallScreen
+            ? `calc(100% - ${topBarHeight}px)`
+            : `calc(100% - ${topBarHeight}px - 1rem)`,
+        }}
+      >
+        {children}
+      </main>
     </div>
   )
 }
