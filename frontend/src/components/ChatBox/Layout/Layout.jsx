@@ -6,7 +6,6 @@ import { useBreakPoint } from '@/hooks/useMediaQuery'
 import { BREAKPOINTS } from '@/vars'
 import { closeMenu } from '@/redux/slices/menuSlice'
 import LogoutButton from '@/components/common/LogoutButton'
-import LanguageButton from '@/components/common/LanguageButton'
 
 const Layout = ({ channels, messages }) => {
   const dispatch = useDispatch()
@@ -35,10 +34,7 @@ const Layout = ({ channels, messages }) => {
           <Offcanvas.Header
             closeButton
             className="d-flex justify-content-end align-items-center mt-2"
-          >
-            <LanguageButton />
-            <div className="me-auto" />
-          </Offcanvas.Header>
+          />
           <Offcanvas.Body className="p-0">{channels}</Offcanvas.Body>
           <div className="pb-2 px-2 pt-3 d-flex justify-content-end">
             <LogoutButton>{t('layout.logoutButton')}</LogoutButton>

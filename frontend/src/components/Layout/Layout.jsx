@@ -22,15 +22,6 @@ const Layout = ({ children }) => {
   const openMenuHandler = () => {
     dispatch(openMenu())
   }
-  const renderLanguageButton = () => {
-    if (!isLogin) {
-      return <LanguageButton />
-    }
-    if (!isSmallScreen) {
-      return <LanguageButton />
-    }
-    return null
-  }
 
   return (
     <div id="chat-wrapper" className="d-flex flex-column h-100">
@@ -51,9 +42,11 @@ const Layout = ({ children }) => {
               {t('layout.brand')}
             </Navbar.Brand>
             <div className="flex-fill" />
-            {renderLanguageButton()}
+            <LanguageButton />
             {isLogin && !isSmallScreen && <LogoutButton>{t('layout.logoutButton')}</LogoutButton>}
-            {isLogin && <Navbar.Toggle onClick={openMenuHandler} aria-controls="nav" />}
+            {isLogin && (
+              <Navbar.Toggle onClick={openMenuHandler} className="ms-3" aria-controls="nav" />
+            )}
           </Container>
         </Navbar>
       </header>
