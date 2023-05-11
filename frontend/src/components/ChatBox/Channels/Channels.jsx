@@ -13,22 +13,19 @@ const Channels = ({
   onChannelDelete,
   onChannelRename,
   onChannelAdd,
+  ownAddCounter,
+  ownRemoveCounter,
 }) => {
   const { t } = useTranslation()
   const channelsListRef = useRef(null)
-  const channelsLength = useRef(channels.length)
   useEffect(() => {
-    const prevChannelsLength = channelsLength.current
-    const currentChannelsLength = channels.length
     if (!channelsListRef.current) return
-    if (prevChannelsLength < currentChannelsLength) {
-      channelsListRef.current.scrollTop = channelsListRef.current.scrollHeight
-    }
-    if (prevChannelsLength > currentChannelsLength) {
-      channelsListRef.current.scrollTop = 0
-    }
-    channelsLength.current = currentChannelsLength
-  }, [channels.length])
+    channelsListRef.current.scrollTop = channelsListRef.current.scrollHeight
+  }, [ownAddCounter])
+  useEffect(() => {
+    if (!channelsListRef.current) return
+    channelsListRef.current.scrollTop = 0
+  }, [ownRemoveCounter])
   if (channels.length === 0) return 'No channels'
   const handleChannelChange = (e) => {
     const id = Number(e.target.dataset.id)
@@ -44,7 +41,6 @@ const Channels = ({
   const handleClick = (id, isShouldCloseMenu) => () => {
     onChannelChange(id, isShouldCloseMenu)
   }
-
   return (
     <div className="chats-block d-flex flex-column h-100 w-100">
       <div
@@ -102,6 +98,7 @@ Channels.defaultProps = {
   onChannelDelete: () => {},
   onChannelRename: () => {},
   onChannelAdd: () => {},
+  ownAddCounter: 0,
 }
 
 export default Channels

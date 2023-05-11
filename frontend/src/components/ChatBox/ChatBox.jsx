@@ -64,6 +64,8 @@ const ChatBox = () => {
   const [fetchingError, setFetchingError] = useState(null)
   const [retryCount, setRetryCount] = useState(0)
   const socket = useSocketContext()
+  const [ownAddCounter, setOwnAddCounter] = useState(0)
+  const [ownRemoveCounter, setOwnRemoveCounter] = useState(0)
   useEffect(() => {
     if (!socket) return
     socket.on('connect', () => {
@@ -176,6 +178,7 @@ const ChatBox = () => {
         dispatch(setActiveChannel(data.data.id))
         if (isSmallScreen) dispatch(closeMenu())
         toast.success(t('chatPage.toasts.channelAdded', { name }))
+        setOwnAddCounter((prev) => prev + 1)
       }
     })
   }
@@ -184,6 +187,7 @@ const ChatBox = () => {
       if (data.status === 'ok') {
         if (isSmallScreen) dispatch(closeMenu())
         toast.success(t('chatPage.toasts.channelRemoved', { name: channelEntities[itemIdx].name }))
+        setOwnRemoveCounter((prev) => prev + 1)
       }
     })
   }
@@ -295,7 +299,6 @@ const ChatBox = () => {
 
   return (
     <>
-      {/* Используй композицию и вынеси layout ситуацию в нее */}
       <Layout
         channels={
           <Channels
@@ -305,6 +308,8 @@ const ChatBox = () => {
             onChannelChange={handleChannelChange}
             onChannelDelete={handleChannelDelete}
             onChannelRename={handleChannelRename}
+            ownAddCounter={ownAddCounter}
+            ownRemoveCounter={ownRemoveCounter}
           />
         }
         messages={
