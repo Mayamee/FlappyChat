@@ -1,5 +1,5 @@
 import { useFormik } from 'formik'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Button, InputGroup, Form } from 'react-bootstrap'
 import { SendPlus } from 'react-bootstrap-icons'
 import { useTranslation } from 'react-i18next'
@@ -7,6 +7,7 @@ import { MESSAGE_LIMIT } from '@/vars'
 
 const MessageForm = ({ onSubmit: submitHandler }) => {
   const { t } = useTranslation()
+  const inputRef = useRef(null)
   const formik = useFormik({
     initialValues: {
       message: '',
@@ -24,6 +25,9 @@ const MessageForm = ({ onSubmit: submitHandler }) => {
     onSubmit: ({ message }, actions) => {
       submitHandler(message.trim())
       actions.resetForm()
+      if (inputRef.current) {
+        inputRef.current.focus()
+      }
     },
   })
   useEffect(() => {
@@ -47,6 +51,7 @@ const MessageForm = ({ onSubmit: submitHandler }) => {
     <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
       <InputGroup>
         <Form.Control
+          ref={inputRef}
           placeholder={t('chatPage.messages.form.placeholder')}
           aria-label="Новое сообщение"
           aria-describedby="submit-message"
