@@ -1,4 +1,3 @@
-import { ToastContainer, toast } from 'react-toastify'
 import { Routes, Route } from 'react-router-dom'
 import Layout from '@/components/Layout/Layout'
 import Chat from '@/pages/Chat'
@@ -23,7 +22,6 @@ const App = () => {
         </Route>
         <Route path="*" element={<Page404 />} />
       </Routes>
-      <ToastContainer position={toast.POSITION.TOP_RIGHT} />
     </Layout>
   )
 }

@@ -1,3 +1,4 @@
+import { ToastContainer, toast } from 'react-toastify'
 import { createRoot } from 'react-dom/client'
 import i18next from 'i18next'
 import { I18nextProvider, initReactI18next } from 'react-i18next'
@@ -41,10 +42,13 @@ const init = async () => {
   )
 }
 
+const toastComponent = <ToastContainer position={toast.POSITION.TOP_RIGHT} />
+const toastContainer = document.getElementById('toast-container')
 const mountNode = document.getElementById('root')
 mountNode.style.height = '100%'
 const app = async () => {
   createRoot(mountNode).render(await init())
+  createRoot(toastContainer).render(toastComponent)
 }
 
 app()
