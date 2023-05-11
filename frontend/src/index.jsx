@@ -42,6 +42,7 @@ const init = async () => {
 }
 
 const mountNode = document.getElementById('root')
+mountNode.style.height = '100%'
 const app = async () => {
   createRoot(mountNode).render(await init())
 }

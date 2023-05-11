@@ -31,8 +31,9 @@ const Layout = ({ children }) => {
     }
     return null
   }
+
   return (
-    <div id="chat-wrapper" className="d-flex flex-column vh-100">
+    <div id="chat-wrapper" className="d-flex flex-column h-100">
       <div id="bg-pattern">
         <img src={BgLayer} alt="" />
       </div>
@@ -56,14 +57,7 @@ const Layout = ({ children }) => {
           </Container>
         </Navbar>
       </header>
-      <main
-        className="flex-fill d-flex"
-        style={{
-          height: `calc(100% - ${topBarHeight}px - 1rem)`,
-        }}
-      >
-        {children}
-      </main>
+      <main className="flex-fill d-flex h-100">{children}</main>
     </div>
   )
 }
